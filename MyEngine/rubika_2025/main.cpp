@@ -7,9 +7,22 @@ unsigned long long uFrameCount = 0;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(720, 480), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(720, 480), "La PAppli !");
     ImGui::SFML::Init(window);
 
+    sf::Texture T_PA_Texture;
+    sf::Texture T_Rayan_Texture;
+
+    //Load texture from ressources folder
+    if (!T_PA_Texture.loadFromFile("../Ressources/Sprite/CHALARON_PA_GP4.jpg"))
+        return EXIT_FAILURE;
+    
+    if (!T_Rayan_Texture.loadFromFile("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
+        return EXIT_FAILURE;
+
+    sf::Sprite paSprite(T_PA_Texture);
+    sf::Sprite rayanSprite(T_Rayan_Texture);
+    
     sf::Clock clock;
     clock.restart();
 
@@ -47,6 +60,17 @@ int main()
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
         window.clear();
+
+        //Draw sprite
+        paSprite.setScale(720 / paSprite.getLocalBounds().width,480 / paSprite.getLocalBounds().height);
+        window.draw(paSprite);
+        
+        paSprite.setScale(720 / paSprite.getLocalBounds().width / 4,480 / paSprite.getLocalBounds().height / 4);
+        window.draw(paSprite);
+
+        rayanSprite.setScale(720 / rayanSprite.getLocalBounds().width / 4,480 / rayanSprite.getLocalBounds().height / 4);
+        rayanSprite.setPosition(500, 0);
+        window.draw(rayanSprite);
 
         ImGui::SFML::Render(window);
         window.display();
