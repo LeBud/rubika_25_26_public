@@ -20,8 +20,6 @@ std::vector<sTeam> g_vTeamNames =
 
 #define SEED 0x64f8e1aa02
 
-std::vector<sTimeCompare> Times[4];
-
 unsigned PickupRandomTeamIndex()
 {
 	return rand() % g_vTeamNames.size();
@@ -90,11 +88,5 @@ int main()
 	for (Algo* algo : algos)
 	{
 		delete algo;
-	}
-
-	unsigned s = Times[0].size();
-	for (unsigned i = 0; i < s; ++i)
-	{
-		std::cout << "Nb Element : " << Times[0][i].NbElement << "\tAvg Time(ms) " << Times[0][i].TimeAvg << "  " << Times[1][i].TimeAvg << "  " << Times[2][i].TimeAvg << "  " << Times[3][i].TimeAvg << std::endl;
 	}
 }
