@@ -69,14 +69,14 @@ int main()
         window.clear();
 
         //Draw sprite
-        paSprite.setScale(720 / paSprite.getLocalBounds().width,480 / paSprite.getLocalBounds().height);
+        paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x,480 / paSprite.getLocalBounds().size.y));
         window.draw(paSprite);
         
-        paSprite.setScale(720 / paSprite.getLocalBounds().width / 4,480 / paSprite.getLocalBounds().height / 4);
+        paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x / 4,480 / paSprite.getLocalBounds().size.y / 4));
         window.draw(paSprite);
 
-        rayanSprite.setScale(720 / rayanSprite.getLocalBounds().width / 4,480 / rayanSprite.getLocalBounds().height / 4);
-        rayanSprite.setPosition(500, 0);
+        rayanSprite.setScale(sf::Vector2f(720 / rayanSprite.getLocalBounds().size.x / 4,480 / rayanSprite.getLocalBounds().size.y / 4));
+        rayanSprite.setPosition(sf::Vector2f(500, 0));
         window.draw(rayanSprite);
 
         ImGui::SFML::Render(window);
