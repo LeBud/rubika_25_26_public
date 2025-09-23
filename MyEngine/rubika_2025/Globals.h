@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <mutex>
 
 // This is a forward declaration :)
 // This is VERY useful and you must learn about it and use it as much as possible
@@ -13,7 +12,7 @@ private:
 	static inline Globals* InstancePtr = nullptr;
 	
 public:
-	
+
 	/*
 	* Constructor & Destructor are here for a reason
 	*/
