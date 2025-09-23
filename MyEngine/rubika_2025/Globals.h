@@ -21,5 +21,5 @@ public:
 	void Init();
 	void Destroy();
 private:
-	TextureMgr* TextureMgr;
+	TextureMgr* pTextureMgr;
 };
