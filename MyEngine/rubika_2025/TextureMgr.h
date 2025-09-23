@@ -31,6 +31,8 @@ public:
 	*/
 	bool LoadTexture(const std::filesystem::path& path);
 
+	void GetXMLFile(const std::filesystem::path& path);
+	
 	/*
 	 * Returns the corresponding TextureData using the name of the texture
 	 */

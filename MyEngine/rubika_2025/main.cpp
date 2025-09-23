@@ -24,21 +24,23 @@ int main()
     Instance->Init();
     Instance->Print();
 
+    //Generate a blank texture to be able te create a sprite before retrieving the texture we want
     sf::Image img({1,1}, sf::Color::Magenta);
     sf::Texture blankText;
     blankText.loadFromImage(img);
-
+    
+    //Sprite that we will use
     sf::Sprite paSprite(blankText);
     sf::Sprite rayanSprite(blankText);
     
     //Load texture from ressources folder
-    if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/CHALARON_PA_GP4.jpg"))
-        paSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("CHALARON_PA_GP4").texture);
+    if (Instance->GetTextureMgr()->LoadTexture("../Ressources/sample4k.jpg"))
+        paSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("sample4k").texture, true);
+
+    Instance->GetTextureMgr()->GetXMLFile("../Ressources/sample4k.xml");
     
-    if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
-        rayanSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("EL_KOTOB_Ryan_GP4").texture);
-    
-    
+    /*if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
+        rayanSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("EL_KOTOB_Ryan_GP4").texture, true);*/
     
     sf::Clock clock;
     clock.restart();
@@ -82,12 +84,12 @@ int main()
         paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x,480 / paSprite.getLocalBounds().size.y));
         window.draw(paSprite);
         
-        paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x / 4,480 / paSprite.getLocalBounds().size.y / 4));
+        /*paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x / 4,480 / paSprite.getLocalBounds().size.y / 4));
         window.draw(paSprite);
 
         rayanSprite.setScale(sf::Vector2f(720 / rayanSprite.getLocalBounds().size.x / 4,480 / rayanSprite.getLocalBounds().size.y / 4));
         rayanSprite.setPosition(sf::Vector2f(500, 0));
-        window.draw(rayanSprite);
+        window.draw(rayanSprite);*/
 
         ImGui::SFML::Render(window);
         window.display();
