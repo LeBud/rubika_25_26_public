@@ -3,6 +3,7 @@
 // This is a forward declaration :)
 // This is VERY useful and you must learn about it and use it as much as possible
 class TextureMgr;
+class GameMgr;
 
 class Globals final
 {
@@ -21,5 +22,6 @@ public:
 	void Init();
 	void Destroy();
 private:
-	TextureMgr* pTextureMgr;
+	TextureMgr* TextureMgr;
+	GameMgr* GameMgr;
 };
