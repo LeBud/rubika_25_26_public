@@ -3,13 +3,19 @@
 #include <Imgui/imgui-SFML.h>
 #include "Profiler.h"
 
+#include "Logger.h"
+
 unsigned long long uFrameCount = 0;
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 1080, 720 }), "SFML works!", sf::State::Windowed);
-    
+
     ImGui::SFML::Init(window);
+
+    Logger::Info("This is an info message. That is useful");
+    Logger::Warning("This is a warning message. Should I worry?");
+    Logger::Error("This is an error message. Oh sh*t!!");
 
     sf::Texture T_PA_Texture;
     sf::Texture T_Rayan_Texture;
@@ -54,7 +60,8 @@ int main()
         ImGui::SFML::Update(window, imGuiTime);
 
         // sample
-        ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
+        Logger::DrawLogger();
 
         PROFILER_EVENT_END();
 
