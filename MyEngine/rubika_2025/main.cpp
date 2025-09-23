@@ -4,6 +4,8 @@
 #include "Profiler.h"
 
 #include "Logger.h"
+#include "Globals.h"
+#include "TextureMgr.h"
 
 unsigned long long uFrameCount = 0;
 
@@ -13,22 +15,30 @@ int main()
 
     ImGui::SFML::Init(window);
 
-    Logger::Info("This is an info message. That is useful");
+    /*Logger::Info("This is an info message. That is useful");
     Logger::Warning("This is a warning message. Should I worry?");
-    Logger::Error("This is an error message. Oh sh*t!!");
+    Logger::Error("This is an error message. Oh sh*t!!");*/
 
-    sf::Texture T_PA_Texture;
-    sf::Texture T_Rayan_Texture;
+    //Singleton
+    Globals* Instance = Globals::getInstance();
+    Instance->Init();
+    Instance->Print();
 
-    //Load texture from ressources folder
-    if (!T_PA_Texture.loadFromFile("../Ressources/Sprite/CHALARON_PA_GP4.jpg"))
-        return EXIT_FAILURE;
+    sf::Image img({1,1}, sf::Color::Magenta);
+    sf::Texture blankText;
+    blankText.loadFromImage(img);
+
+    sf::Sprite paSprite(blankText);
+    sf::Sprite rayanSprite(blankText);
     
-    if (!T_Rayan_Texture.loadFromFile("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
-        return EXIT_FAILURE;
-
-    sf::Sprite paSprite(T_PA_Texture);
-    sf::Sprite rayanSprite(T_Rayan_Texture);
+    //Load texture from ressources folder
+    if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/CHALARON_PA_GP4.jpg"))
+        paSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("CHALARON_PA_GP4").texture);
+    
+    if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
+        rayanSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("EL_KOTOB_Ryan_GP4").texture);
+    
+    
     
     sf::Clock clock;
     clock.restart();
