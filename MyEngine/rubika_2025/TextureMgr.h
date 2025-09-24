@@ -4,14 +4,21 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <unordered_map>
 
+struct sAnimationData {
+
+	int StartX;
+	int StartY;
+	//etc...
+	
+};
+
 /* Struct that contains any data linked to a texture.
  * From the texture itself to its metadata.
  */ 
 struct sTextureData
 {
 	sf::Texture texture;
-	std::string name;
-	std::string filepath;
+	std::unordered_map<std::string, sAnimationData> animations;
 };
 
 class TextureMgr final

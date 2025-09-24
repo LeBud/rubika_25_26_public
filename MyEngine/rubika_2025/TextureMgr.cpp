@@ -11,6 +11,7 @@ TextureMgr::TextureMgr() {
 }
 
 TextureMgr::~TextureMgr() {
+    textures.clear();
 }
 
 bool TextureMgr::LoadTexture(const std::filesystem::path& path) {
@@ -29,8 +30,8 @@ bool TextureMgr::LoadTexture(const std::filesystem::path& path) {
     std::string filename = path.stem().string();
     sTextureData data;
     data.texture = std::move(texture);
-    data.name = filename;
-    data.filepath = path.string();
+    //data.name = filename;
+    //data.filepath = path.string();
 
     textures[filename] = std::move(data);
     Logger::Info("TextureMgr::LoadTexture: Loaded : " + filename);
@@ -70,7 +71,7 @@ const sTextureData& TextureMgr::GetTextureData(const std::string& name) const {
         const auto& blank = textures.find("Blank");
         if (blank == textures.end()) {
             sTextureData blankData;
-            blankData.name = "Blank";
+            //blankData.name = "Blank";
             blankData.texture = blankText;
 
             return blankData; //c'est du code de merde
