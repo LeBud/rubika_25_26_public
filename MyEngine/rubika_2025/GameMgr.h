@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "IComponent.h"
+
 namespace sf
 {
 	class RenderWindow;
@@ -20,6 +22,11 @@ public:
 	void Draw(sf::RenderWindow& window);
 
 	void AddEntity(Entity* entity);
+
+	void AddComponent(Entity* entity, IComponent* component);
+	void RemoveComponent(Entity* entity, IComponent* component);
+
+	
 private:
 	std::vector<Entity*> Entities;
 };

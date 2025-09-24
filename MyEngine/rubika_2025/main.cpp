@@ -48,10 +48,11 @@ int main()
     //Ajout d'entité et de component a l'entité
 
     Entity* testEntity = new Entity();
-    TransformComponent* trans = new TransformComponent(*testEntity);
-    testEntity->components.emplace_back(trans);
-    
     Instance->gameMgr->AddEntity(testEntity);
+    
+    TransformComponent* trans = new TransformComponent(*testEntity);
+    Instance->gameMgr->AddComponent(testEntity, trans);
+    
 
 
 

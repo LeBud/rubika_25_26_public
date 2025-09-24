@@ -42,3 +42,22 @@ void GameMgr::AddEntity(Entity* entity)
 	Entities.push_back(entity);
 	entity->Start();
 }
+
+void GameMgr::AddComponent(Entity* entity, IComponent* component) {
+	if (!entity)
+		return;
+
+	entity->components.emplace_back(component);
+}
+
+void GameMgr::RemoveComponent(Entity* entity, IComponent* component) {
+	if (!entity)
+		return;
+
+	for (IComponent* e : entity->components) {
+		if (e == component) {
+			//Faire des trucs je sais pas
+			break;
+		}
+	}
+}
