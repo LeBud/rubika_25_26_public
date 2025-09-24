@@ -208,6 +208,7 @@
     <ClCompile Include="..\Dependencies\Imgui\imgui_draw.cpp" />
     <ClCompile Include="..\Dependencies\Imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Dependencies\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -217,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameMgr.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="Logger.h" />
