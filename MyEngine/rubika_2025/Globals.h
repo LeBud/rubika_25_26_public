@@ -42,5 +42,5 @@ private:
 
 public:
 	TextureMgr* GetTextureMgr() const;
-	GameMgr* GameMgr;
+	GameMgr* gameMgr;
 };

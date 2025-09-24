@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "IComponent.h"
+
 namespace sf
 {
 	class RenderWindow;

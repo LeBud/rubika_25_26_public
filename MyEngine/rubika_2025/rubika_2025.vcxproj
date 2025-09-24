@@ -210,6 +210,7 @@
     <ClCompile Include="..\Dependencies\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TextureMgr.cpp" />

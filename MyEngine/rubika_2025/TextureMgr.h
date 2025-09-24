@@ -1,15 +1,25 @@
 #pragma once
 
-#include <filesystem>
 #include <SFML/Graphics/Texture.hpp>
-#include <unordered_map>
 
-struct sAnimationData {
+#include <filesystem>
+#include <unordered_map>
+#include <string>
+
+struct sAnimationData
+{
+	sAnimationData();
 
 	int StartX;
 	int StartY;
-	//etc...
-	
+	int SizeX;
+	int SizeY;
+	int OffsetX;
+	int OffsetY;
+	int AnimationSpriteCount;
+	int SpriteOnLine;
+	bool IsReverted;
+	float TimeBetweenAnimationInS;
 };
 
 /* Struct that contains any data linked to a texture.
@@ -17,18 +27,17 @@ struct sAnimationData {
  */ 
 struct sTextureData
 {
-	sf::Texture texture;
-	std::unordered_map<std::string, sAnimationData> animations;
+	sf::Texture Texture;
+	std::unordered_map<std::string, sAnimationData> AnimationData;
+	sTextureData();
+	~sTextureData();
 };
 
 class TextureMgr final
 {
 public:
-
 	TextureMgr();
 	~TextureMgr();
-	
-	std::unordered_map<std::string, sTextureData> textures;
 	
 	/*
 	 * Loads the texture using the given path, including its metadata.
@@ -38,10 +47,13 @@ public:
 	*/
 	bool LoadTexture(const std::filesystem::path& path);
 
-	void GetXMLFile(const std::filesystem::path& path);
-	
 	/*
 	 * Returns the corresponding TextureData using the name of the texture
 	 */
 	const sTextureData& GetTextureData(const std::string& name) const;
+
+private:
+	std::unordered_map<std::string, sTextureData> Textures;
+
+	sTextureData MissingTexture;
 };

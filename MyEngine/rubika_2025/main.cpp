@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <Imgui/imgui.h>
 #include <Imgui/imgui-SFML.h>
+
+#include "GameMgr.h"
 #include "Profiler.h"
 
 #include "Logger.h"
@@ -35,9 +37,7 @@ int main()
     
     //Load texture from ressources folder
     if (Instance->GetTextureMgr()->LoadTexture("../Ressources/sample4k.jpg"))
-        paSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("sample4k").texture, true);
-
-    Instance->GetTextureMgr()->GetXMLFile("../Ressources/sample4k.xml");
+        paSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("sample4k").Texture, true);
     
     /*if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
         rayanSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("EL_KOTOB_Ryan_GP4").texture, true);*/
@@ -81,8 +81,8 @@ int main()
         window.clear();
 
         //Draw sprite
-        paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x,480 / paSprite.getLocalBounds().size.y));
-        window.draw(paSprite);
+        /*paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x,480 / paSprite.getLocalBounds().size.y));
+        window.draw(paSprite);*/
         
         /*paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x / 4,480 / paSprite.getLocalBounds().size.y / 4));
         window.draw(paSprite);
@@ -90,6 +90,10 @@ int main()
         rayanSprite.setScale(sf::Vector2f(720 / rayanSprite.getLocalBounds().size.x / 4,480 / rayanSprite.getLocalBounds().size.y / 4));
         rayanSprite.setPosition(sf::Vector2f(500, 0));
         window.draw(rayanSprite);*/
+
+        Instance->gameMgr->Update(fDeltaTimeMS);
+        Instance->gameMgr->Draw(window);
+        
 
         ImGui::SFML::Render(window);
         window.display();
