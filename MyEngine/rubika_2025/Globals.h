@@ -1,9 +1,9 @@
 #pragma once
-#include <iostream>
 
 // This is a forward declaration :)
 // This is VERY useful and you must learn about it and use it as much as possible
 class TextureMgr;
+class GameMgr;
 
 class Globals {
 	
@@ -25,8 +25,8 @@ public:
 	*/
 	void Init();
 	void Destroy();
-
-	static Globals* getInstance() {
+	
+static Globals* getInstance() {
 		if (InstancePtr == nullptr)
 				InstancePtr = new Globals();
 		
@@ -36,11 +36,11 @@ public:
 	void Print() {
 		std::cout << "Instance generated" << std::endl;
 	}
-	
-	
+
 private:
 	TextureMgr* textureMgr;
 
 public:
 	TextureMgr* GetTextureMgr() const;
+	GameMgr* GameMgr;
 };
