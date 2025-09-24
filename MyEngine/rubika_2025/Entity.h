@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "IComponent.h"
 
@@ -42,4 +43,6 @@ public:
 	  * Function that will be called each frame to draw the entity
 	*/
 	void Draw(sf::RenderWindow& window) const;
+
+	std::vector<IComponent*> components;
 };

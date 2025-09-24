@@ -2,12 +2,14 @@
 #include <Imgui/imgui.h>
 #include <Imgui/imgui-SFML.h>
 
+#include "Entity.h"
 #include "GameMgr.h"
 #include "Profiler.h"
 
 #include "Logger.h"
 #include "Globals.h"
 #include "TextureMgr.h"
+#include "TransformComponent.h"
 
 unsigned long long uFrameCount = 0;
 
@@ -41,6 +43,23 @@ int main()
     
     /*if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
         rayanSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("EL_KOTOB_Ryan_GP4").texture, true);*/
+
+
+    //Ajout d'entité et de component a l'entité
+
+    Entity* testEntity = new Entity();
+    TransformComponent* trans = new TransformComponent(*testEntity);
+    testEntity->components.emplace_back(trans);
+    
+    Instance->gameMgr->AddEntity(testEntity);
+
+
+
+
+
+
+
+
     
     sf::Clock clock;
     clock.restart();
