@@ -71,6 +71,8 @@ void SpriteComponent::UpdateAnimation(int currentSprite) {
 void SpriteComponent::SetTexture(const std::string& textureName) {
     textureData = &Globals::GetInstance()->GetTextureMgr()->GetTextureData(textureName);
     sprite.setTexture(textureData->Texture);
+
+    Globals::GetInstance()->GetTextureMgr()->PopulateTextureUsedByEntity(textureName, GetEntity());
 }
 
 void SpriteComponent::SetAnimation(const std::string& animationName) {

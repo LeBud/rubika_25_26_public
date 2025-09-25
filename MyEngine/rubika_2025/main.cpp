@@ -30,11 +30,11 @@ int main()
     Globals::GetInstance()->Init();
 
     //Ajout d'entité et de component a l'entité
-    Entity* testEntity = new Entity();
+    Entity* testEntity = new Entity("Bonjour");
     testEntity->AddComponent<TransformComponent>();
-    testEntity->AddComponent<SpriteComponent>();
     testEntity->GetComponent<TransformComponent>()->SetPosition(sf::Vector2f{200,200});
     
+    testEntity->AddComponent<SpriteComponent>();
     if (Globals::GetInstance()->GetTextureMgr()->LoadTexture("../Ressources/IsaacSprite.png")) {
         SpriteComponent* sprite = testEntity->GetComponent<SpriteComponent>();
         sprite->SetTexture("../Ressources/IsaacSprite.png");

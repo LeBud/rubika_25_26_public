@@ -21,8 +21,7 @@ TextureMgr::~TextureMgr()
 const sTextureData& TextureMgr::GetTextureData(const std::string& name) const
 {
 	const auto& it = Textures.find(name);
-	if (it != Textures.end())
-	{
+	if (it != Textures.end()){
 		return it->second;
 	}
 
@@ -31,6 +30,14 @@ const sTextureData& TextureMgr::GetTextureData(const std::string& name) const
 
 const std::unordered_map<std::string, sTextureData>& TextureMgr::GetTextureMap() const {
 	return Textures;
+}
+
+void TextureMgr::PopulateTextureUsedByEntity(const std::string& name, Entity& entity) {
+	textureUsedByEntity[name].push_back(&entity);
+}
+
+std::vector<Entity*> TextureMgr::GetTextureUsedByEntity(const std::string& name) {
+	return textureUsedByEntity[name];
 }
 
 bool LoadAnimationMetadata(rapidxml::xml_node<>* node, sTextureData& textureData)

@@ -4,6 +4,7 @@
 
 #include <ImGui/imgui.h>
 
+#include "Entity.h"
 #include "Globals.h"
 
 void Debugs::DrawDebugWindow()
@@ -118,8 +119,23 @@ void Debugs::DrawDebug()
 						ImGui::SameLine();
 						ImGui::Text(", %d", t.second.Texture.getSize().y);
 
+						ImGui::Text("Texture Size : %d mb", t.second.Texture.getMaximumSize());
 						ImGui::Text("Animations count : %d", t.second.AnimationData.size());
+						
 						//Insérer ici par qui il est utilisé
+						if (ImGui::TreeNode("Used By")) {
+							auto used = Globals::GetInstance()->GetTextureMgr()->GetTextureUsedByEntity(t.first);
+
+							if (!used.empty()) {
+								ImGui::Text("Used By : %d", used.size());
+								
+								for (auto u : used) {
+									ImGui::Text("Entity : %s", u->entityName);
+								}
+							}
+							
+							ImGui::TreePop();
+						}
 
 						if (ImGui::TreeNode("Animations")) {
 							for (auto a : t.second.AnimationData) {

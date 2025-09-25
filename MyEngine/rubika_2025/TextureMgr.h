@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <string>
 
+class Entity;
+
 struct sAnimationData
 {
 	sAnimationData();
@@ -29,6 +31,7 @@ struct sTextureData
 {
 	sf::Texture Texture;
 	std::unordered_map<std::string, sAnimationData> AnimationData;
+	
 	sTextureData();
 	~sTextureData();
 };
@@ -53,8 +56,13 @@ public:
 	const sTextureData& GetTextureData(const std::string& name) const;
 	const std::unordered_map<std::string, sTextureData>& GetTextureMap() const;
 
+	void PopulateTextureUsedByEntity(const std::string& name, Entity& entity);
+	std::vector<Entity*> GetTextureUsedByEntity(const std::string& name);
+	
 private:
 	std::unordered_map<std::string, sTextureData> Textures;
 
 	sTextureData MissingTexture;
+
+	std::unordered_map<std::string, std::vector<Entity*>> textureUsedByEntity;
 };
