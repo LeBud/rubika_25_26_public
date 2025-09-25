@@ -8,6 +8,7 @@
 
 #include "Logger.h"
 #include "Globals.h"
+#include "SpriteComponent.h"
 #include "TextureMgr.h"
 #include "TransformComponent.h"
 
@@ -24,9 +25,11 @@ int main()
     Logger::Error("This is an error message. Oh sh*t!!");*/
 
     //Singleton
-    Globals* Instance = Globals::getInstance();
+    /*Globals* Instance = Globals::GetInstance();
     Instance->Init();
-    Instance->Print();
+    Instance->Print();*/
+
+    Globals::GetInstance()->Init();
 
     //Generate a blank texture to be able te create a sprite before retrieving the texture we want
     sf::Image img({1,1}, sf::Color::Magenta);
@@ -38,28 +41,22 @@ int main()
     sf::Sprite rayanSprite(blankText);
     
     //Load texture from ressources folder
-    if (Instance->GetTextureMgr()->LoadTexture("../Ressources/sample4k.jpg"))
-        paSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("sample4k").Texture, true);
-    
-    /*if (Instance->GetTextureMgr()->LoadTexture("../Ressources/Sprite/EL_KOTOB_Ryan_GP4.jpg"))
-        rayanSprite.setTexture(Instance->GetTextureMgr()->GetTextureData("EL_KOTOB_Ryan_GP4").texture, true);*/
-
+    //paSprite.setTexture(Globals::GetInstance()->GetTextureMgr()->GetTextureData("sample4k").Texture, true);
 
     //Ajout d'entité et de component a l'entité
-
     Entity* testEntity = new Entity();
-    Instance->gameMgr->AddEntity(testEntity);
+    testEntity->AddComponent<TransformComponent>();
+    testEntity->AddComponent<SpriteComponent>();
+    testEntity->GetComponent<TransformComponent>()->SetPosition(sf::Vector2f{200,200});
     
-    TransformComponent* trans = new TransformComponent(*testEntity);
-    Instance->gameMgr->AddComponent(testEntity, trans);
+    if (Globals::GetInstance()->GetTextureMgr()->LoadTexture("../Ressources/IsaacSprite.png")) {
+        SpriteComponent* sprite = testEntity->GetComponent<SpriteComponent>();
+        sprite->SetTexture("../Ressources/IsaacSprite.png");
+        sprite->SetAnimation("Body_Vertical");
+        sprite = nullptr;
+    }
     
-
-
-
-
-
-
-
+    Globals::GetInstance()->GetGameMgr()->AddEntity(testEntity);
 
     
     sf::Clock clock;
@@ -76,10 +73,8 @@ int main()
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_BLUE, "Event & Input");
 
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
+        while (const std::optional event = window.pollEvent()){
+            if (event->is<sf::Event::Closed>()){
                 window.close();
             }
 
@@ -100,20 +95,8 @@ int main()
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
         window.clear();
 
-        //Draw sprite
-        /*paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x,480 / paSprite.getLocalBounds().size.y));
-        window.draw(paSprite);*/
-        
-        /*paSprite.setScale(sf::Vector2f(720 / paSprite.getLocalBounds().size.x / 4,480 / paSprite.getLocalBounds().size.y / 4));
-        window.draw(paSprite);
-
-        rayanSprite.setScale(sf::Vector2f(720 / rayanSprite.getLocalBounds().size.x / 4,480 / rayanSprite.getLocalBounds().size.y / 4));
-        rayanSprite.setPosition(sf::Vector2f(500, 0));
-        window.draw(rayanSprite);*/
-
-        Instance->gameMgr->Update(fDeltaTimeMS);
-        Instance->gameMgr->Draw(window);
-        
+        Globals::GetInstance()->GetGameMgr()->Update(fDeltaTimeS);
+        Globals::GetInstance()->GetGameMgr()->Draw(window);
 
         ImGui::SFML::Render(window);
         window.display();

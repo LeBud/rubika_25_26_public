@@ -209,9 +209,12 @@
     <ClCompile Include="..\Dependencies\Imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Dependencies\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Debugs.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameMgr.cpp" />
+    <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="TextureMgr.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>

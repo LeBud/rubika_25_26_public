@@ -26,7 +26,7 @@ public:
 	void Init();
 	void Destroy();
 	
-static Globals* getInstance() {
+static Globals* GetInstance() {
 		if (InstancePtr == nullptr)
 				InstancePtr = new Globals();
 		
@@ -39,8 +39,9 @@ static Globals* getInstance() {
 
 private:
 	TextureMgr* textureMgr;
+	GameMgr* gameMgr;
 
 public:
 	TextureMgr* GetTextureMgr() const;
-	GameMgr* gameMgr;
+	GameMgr* GetGameMgr() const;
 };

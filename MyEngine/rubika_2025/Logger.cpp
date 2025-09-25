@@ -3,6 +3,7 @@
 #include "Imgui/imgui.h"
 #include "Debugs.h"
 
+
 void Logger::Info(const std::string& message)
 {
 	sMessageInfo info;

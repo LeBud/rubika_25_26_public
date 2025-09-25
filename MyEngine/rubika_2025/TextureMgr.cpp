@@ -6,7 +6,6 @@
 #include <SFML/Graphics/Image.hpp>
 #include <rapidxml/rapidxml_utils.hpp>
 #include <filesystem>
-#include <iostream>
 
 TextureMgr::TextureMgr()
 {
@@ -147,6 +146,8 @@ bool LoadTextureMetadata(const std::filesystem::path& path, sTextureData& textur
 		}
 	}
 
+	Logger::Info("Metadata Loaded");
+
 	return true;
 }
 
@@ -188,12 +189,13 @@ bool TextureMgr::LoadTexture(const std::filesystem::path& path)
 		return false;
 	}
 
+	Logger::Info("Texture Loaded");
 	return true;
 }
 
 
 sAnimationData::sAnimationData() : StartX(0), StartY(0), SizeX(0), SizeY(0),
-OffsetX(0), OffsetY(0), AnimationSpriteCount(0), SpriteOnLine(0), IsReverted(false)
+OffsetX(0), OffsetY(0), AnimationSpriteCount(0), SpriteOnLine(0), IsReverted(false), TimeBetweenAnimationInS(0)
 {}
 
 sTextureData::sTextureData() : Texture(), AnimationData()

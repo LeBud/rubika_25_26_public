@@ -19,7 +19,7 @@ struct sAnimationData
 	int AnimationSpriteCount;
 	int SpriteOnLine;
 	bool IsReverted;
-	float TimeBetweenAnimationInS;
+	float TimeBetweenAnimationInS; 
 };
 
 /* Struct that contains any data linked to a texture.

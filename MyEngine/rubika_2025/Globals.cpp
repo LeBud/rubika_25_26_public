@@ -18,5 +18,15 @@ void Globals::Destroy() {
 }
 
 TextureMgr* Globals::GetTextureMgr() const {
-    return textureMgr;
+    if (textureMgr != nullptr)
+        return textureMgr;
+
+    return nullptr;
+}
+
+GameMgr* Globals::GetGameMgr() const {
+    if (gameMgr != nullptr)
+        return gameMgr;
+    
+    return nullptr;
 }
