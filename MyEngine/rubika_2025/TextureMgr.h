@@ -51,6 +51,7 @@ public:
 	 * Returns the corresponding TextureData using the name of the texture
 	 */
 	const sTextureData& GetTextureData(const std::string& name) const;
+	const std::unordered_map<std::string, sTextureData>& GetTextureMap() const;
 
 private:
 	std::unordered_map<std::string, sTextureData> Textures;

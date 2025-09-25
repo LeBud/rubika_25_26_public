@@ -29,6 +29,10 @@ const sTextureData& TextureMgr::GetTextureData(const std::string& name) const
 	return MissingTexture;
 }
 
+const std::unordered_map<std::string, sTextureData>& TextureMgr::GetTextureMap() const {
+	return Textures;
+}
+
 bool LoadAnimationMetadata(rapidxml::xml_node<>* node, sTextureData& textureData)
 {
 	if (!node)
