@@ -6,31 +6,39 @@
 
 void Logger::Info(const std::string& message)
 {
+#ifdef USE_IMGUI
 	sMessageInfo info;
 	info.Type = eMessageType::Info;
 	info.Message = message;
 	Debugs::GetLogger().PushNewMessage(info);
+#endif
 }
 
 void Logger::Warning(const std::string& message)
 {
+#ifdef USE_IMGUI
 	sMessageInfo info;
 	info.Type = eMessageType::Warning;
 	info.Message = message;
 	Debugs::GetLogger().PushNewMessage(info);
+#endif
 }
 
 void Logger::Error(const std::string& message)
 {
+#ifdef USE_IMGUI
 	sMessageInfo info;
 	info.Type = eMessageType::Error;
 	info.Message = message;
 	Debugs::GetLogger().PushNewMessage(info);
+#endif
 }
 
 void Logger::DrawLogger()
 {
+#ifdef USE_IMGUI
 	Debugs::GetLogger().Draw();
+#endif
 }
 
 void Logger::PushNewMessage(const sMessageInfo& message)
@@ -40,7 +48,7 @@ void Logger::PushNewMessage(const sMessageInfo& message)
 
 void Logger::Draw()
 {
-	if (ImGui::Begin("Console"))
+	//if (ImGui::Begin("Console"))
 	{
 		if (ImGui::Checkbox("Info", &DisplayInfoMessage))
 		{
@@ -126,5 +134,5 @@ void Logger::Draw()
 		}
 
 	}
-	ImGui::End();
+	//ImGui::End();
 }

@@ -2,6 +2,7 @@
 #include <Imgui/imgui.h>
 #include <Imgui/imgui-SFML.h>
 
+#include "Debugs.h"
 #include "Entity.h"
 #include "GameMgr.h"
 #include "Profiler.h"
@@ -18,30 +19,15 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 1080, 720 }), "SFML works!", sf::State::Windowed);
 
+#ifdef USE_IMGUI
     ImGui::SFML::Init(window);
+#endif
 
     /*Logger::Info("This is an info message. That is useful");
     Logger::Warning("This is a warning message. Should I worry?");
     Logger::Error("This is an error message. Oh sh*t!!");*/
 
-    //Singleton
-    /*Globals* Instance = Globals::GetInstance();
-    Instance->Init();
-    Instance->Print();*/
-
     Globals::GetInstance()->Init();
-
-    //Generate a blank texture to be able te create a sprite before retrieving the texture we want
-    sf::Image img({1,1}, sf::Color::Magenta);
-    sf::Texture blankText;
-    blankText.loadFromImage(img);
-    
-    //Sprite that we will use
-    sf::Sprite paSprite(blankText);
-    sf::Sprite rayanSprite(blankText);
-    
-    //Load texture from ressources folder
-    //paSprite.setTexture(Globals::GetInstance()->GetTextureMgr()->GetTextureData("sample4k").Texture, true);
 
     //Ajout d'entité et de component a l'entité
     Entity* testEntity = new Entity();
@@ -57,7 +43,6 @@ int main()
     }
     
     Globals::GetInstance()->GetGameMgr()->AddEntity(testEntity);
-
     
     sf::Clock clock;
     clock.restart();
@@ -77,28 +62,40 @@ int main()
             if (event->is<sf::Event::Closed>()){
                 window.close();
             }
-
+#ifdef USE_IMGUI
             ImGui::SFML::ProcessEvent(window, event.value());
+#endif
         }
 
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Update");
+        
+#ifdef USE_IMGUI
         ImGui::SFML::Update(window, imGuiTime);
+#endif
 
         // sample
         //ImGui::ShowDemoWindow();
-        Logger::DrawLogger();
-
+        //Logger::DrawLogger();
+        
+#ifdef USE_IMGUI
+        Debugs::DrawDebugWindow();
+#endif
+        
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
         window.clear();
 
+        //========================= Update du GameMgr =========================
         Globals::GetInstance()->GetGameMgr()->Update(fDeltaTimeS);
         Globals::GetInstance()->GetGameMgr()->Draw(window);
-
+        
+#ifdef USE_IMGUI
         ImGui::SFML::Render(window);
+#endif
+        
         window.display();
 
         PROFILER_EVENT_END();
@@ -107,7 +104,9 @@ int main()
         ++uFrameCount;
     }
 
+#ifdef USE_IMGUI
     ImGui::SFML::Shutdown();
+#endif
 
     return 0;
 }

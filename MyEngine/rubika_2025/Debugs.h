@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef USE_IMGUI
+
 #include "Logger.h"
 
 class Debugs
@@ -19,9 +21,11 @@ public:
 	static Logger& GetLogger();
 
 	void DrawDebug();
-
+	
 private:
 	Logger Logger;
 
 	// You can add any method, member... you need in this file.
 };
+
+#endif
