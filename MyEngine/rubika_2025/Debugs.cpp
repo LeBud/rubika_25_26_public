@@ -48,6 +48,7 @@ void Debugs::DrawDebug()
 				Logger::DrawLogger(); 
 				ImGui::EndTabItem();
 			}
+			
 			//Draw the textureMgr debugger
 			if (ImGui::BeginTabItem("TextureMgr"))
 			{
@@ -60,7 +61,7 @@ void Debugs::DrawDebug()
 					ImGui::Text("Texture : %s", t.first.c_str());	
 				}*/
 
-				if (ImGui::BeginTable("Logs##TextureMgr", 8, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders)) {
+				/*if (ImGui::BeginTable("Logs##TextureMgr", 8, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders)) {
 					ImGui::TableSetupColumn("Texture"); //Nom - Chemin de la texture
 					ImGui::TableSetupColumn("Animations Data"); //Combien il y a d'animation pour ce sprite
 					ImGui::TableSetupColumn("Start X,Y"); //la position des sprites
@@ -108,8 +109,53 @@ void Debugs::DrawDebug()
 					}
 
 					ImGui::EndTable();
-				}
+				}*/
 				
+				
+				for (auto t : tex->GetTextureMap()) {
+					if (ImGui::TreeNode(t.first.c_str())) {
+						ImGui::Text("Texture width / height : %d", t.second.Texture.getSize().x);
+						ImGui::SameLine();
+						ImGui::Text(", %d", t.second.Texture.getSize().y);
+
+						ImGui::Text("Animations count : %d", t.second.AnimationData.size());
+						//Insérer ici par qui il est utilisé
+
+						if (ImGui::TreeNode("Animations")) {
+							for (auto a : t.second.AnimationData) {
+								if (ImGui::TreeNode(a.first.c_str())) {
+								
+									ImGui::Text("Start X/Y : %d", a.second.StartX);
+									ImGui::SameLine();
+									ImGui::Text(", %d", a.second.StartY);
+								
+									ImGui::Text("Size X/Y : %d", a.second.SizeX);
+									ImGui::SameLine();
+									ImGui::Text(", %d", a.second.SizeY);
+								
+									ImGui::Text("Offset X/Y : %d", a.second.OffsetX);
+									ImGui::SameLine();
+									ImGui::Text(", %d", a.second.OffsetY);
+								
+									ImGui::Text("Frames : %d", a.second.AnimationSpriteCount);
+								
+									if (a.second.TimeBetweenAnimationInS > 0)
+										ImGui::Text("Time between frame : %.3f", a.second.TimeBetweenAnimationInS);
+									else
+										ImGui::Text("Time between frame : 0");
+								
+									ImGui::Text(a.second.IsReverted ? "Inverted Animation : True" : "Inverted Animation : False");
+								
+									ImGui::TreePop();
+								}
+							}
+							
+							ImGui::TreePop();
+						}
+
+						ImGui::TreePop();
+					}
+				}
 				
 				ImGui::EndTabItem();
 			}
