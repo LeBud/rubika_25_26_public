@@ -208,15 +208,18 @@
     <ClCompile Include="..\Dependencies\Imgui\imgui_draw.cpp" />
     <ClCompile Include="..\Dependencies\Imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Dependencies\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Debugs.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextureMgr.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Debugs.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="Globals.h" />
