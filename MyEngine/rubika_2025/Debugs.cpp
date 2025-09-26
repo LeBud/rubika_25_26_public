@@ -168,8 +168,6 @@ void Debugs::DrawEntityDebugger() {
 						
 						if (ImGui::TreeNode("Sprite Component")) {
 
-							//Changer sprite
-
 							auto textures = Globals::GetInstance()->GetTextureMgr()->GetTextureMap();
 							
 							if (ImGui::BeginCombo("Textures", component->textureData->TextureName.c_str())) {
