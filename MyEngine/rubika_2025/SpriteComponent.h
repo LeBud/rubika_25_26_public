@@ -30,6 +30,7 @@ public:
 
 	const sTextureData* textureData;
 	const sAnimationData* currentAnimationData;
+	std::string currentAnimationName;
 	
 	sf::Sprite sprite;
 	

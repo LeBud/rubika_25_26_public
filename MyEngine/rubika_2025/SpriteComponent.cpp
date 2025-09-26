@@ -26,14 +26,14 @@ void SpriteComponent::Update(float fDeltaTime) {
             if (currentAnimationData->IsReverted) {
                 currentSpriteIndex--;
                 
-                if (currentSpriteIndex <= 1) 
-                    currentSpriteIndex = currentAnimationData->AnimationSpriteCount;
+                if (currentSpriteIndex < 0) 
+                    currentSpriteIndex = currentAnimationData->AnimationSpriteCount - 1;
             }
             else {
                 currentSpriteIndex++;
                 
                 if (currentSpriteIndex >= currentAnimationData->AnimationSpriteCount) 
-                    currentSpriteIndex = 1;
+                    currentSpriteIndex = 0;
             }
                 
             currentTimer = 0.0f;
@@ -59,7 +59,7 @@ void SpriteComponent::PlayAnimation(bool bPause) {
 
 void SpriteComponent::UpdateAnimation(int currentSprite) {
     
-    if (bPause) return;
+    //if (bPause) return;
     
     int currentX = currentAnimationData->StartX + currentAnimationData->SizeX * currentSprite + currentAnimationData->OffsetX * currentSprite;
     int currentY = currentAnimationData->StartY /*+ currentAnimationData->SizeY * currentSprite + currentAnimationData->OffsetY * currentSprite*/;
@@ -68,9 +68,11 @@ void SpriteComponent::UpdateAnimation(int currentSprite) {
     sprite.setOrigin({(float)currentAnimationData->SizeX / 2,(float)currentAnimationData->SizeY / 2});
 
     //Set Position, rotation and scale to transform position, rotation and scale
-    sprite.setPosition(GetEntity().GetComponent<TransformComponent>()->GetPosition());
-    sprite.setRotation(GetEntity().GetComponent<TransformComponent>()->GetRotation());
-    sprite.setScale(GetEntity().GetComponent<TransformComponent>()->GetScale());
+    if (GetEntity().GetComponent<TransformComponent>()) { //Securité pour check que l'entity a un transform
+        sprite.setPosition(GetEntity().GetComponent<TransformComponent>()->GetPosition());
+        sprite.setRotation(GetEntity().GetComponent<TransformComponent>()->GetRotation());
+        sprite.setScale(GetEntity().GetComponent<TransformComponent>()->GetScale());
+    }
 }
 
 void SpriteComponent::SetTexture(const std::string& textureName) {
@@ -92,9 +94,14 @@ void SpriteComponent::SetAnimation(const std::string& animationName) {
     const auto& it = textureData->AnimationData.find(animationName);
     if (it != textureData->AnimationData.end()) {
         currentAnimationData = &it->second;
+        currentAnimationName = animationName;
     }
     else {
         currentAnimationData = &textureData->AnimationData.begin()->second; //Sécurité dans le doute de ne pas trouver l'animation souhaité
+        currentAnimationName = textureData->AnimationData.begin()->first.c_str();
     }
+
+    currentSpriteIndex = 0;
+    UpdateAnimation(currentSpriteIndex);
     
 }

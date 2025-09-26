@@ -149,7 +149,7 @@ void Debugs::DrawEntityDebugger() {
 		clicked = 0;
 	}
 	
-	if (ImGui::TreeNode("Entities")) {
+	if (ImGui::CollapsingHeader("Entities")) {
 		
 		//Display chaque component de l'entity
 		//Pouvoir modifier dynamiquement les component (transform - sprite - etc.)
@@ -163,7 +163,31 @@ void Debugs::DrawEntityDebugger() {
 
 				for (auto c : e->GetAllComponents()) {
 					if (c == e->GetComponent<SpriteComponent>()) {
+
+						auto component = e->GetComponent<SpriteComponent>();
+						
 						if (ImGui::TreeNode("Sprite Component")) {
+
+							if (ImGui::BeginCombo("Animations", component->currentAnimationName.c_str())) {
+								for (auto t : component->textureData->AnimationData) {
+									const bool isSelected = t.first == component->currentAnimationName;
+									if (ImGui::Selectable(t.first.c_str(), isSelected)) {
+										component->SetAnimation(t.first);
+									}
+
+									if (isSelected)
+										ImGui::SetItemDefaultFocus();
+								}
+
+								ImGui::EndCombo();
+							}
+							
+							ImGui::Checkbox("Pause Animation", &component->bPause);
+							component->PlayAnimation(component->bPause);
+							
+							ImGui::Text("Current frame :%d", component->currentSpriteIndex);
+							
+							//Changer la texture du sprite <--------------
 							
 							ImGui::TreePop();
 						}
@@ -183,6 +207,11 @@ void Debugs::DrawEntityDebugger() {
 								sf::Angle newAngle = sf::degrees(angle);
 								e->GetComponent<TransformComponent>()->SetRotation(newAngle);
 							}
+
+							sf::Vector2f scale = e->GetComponent<TransformComponent>()->GetScale();
+							if (ImGui::DragFloat2("Scale", &scale.x)) {
+								e->GetComponent<TransformComponent>()->SetScale(scale);
+							}
 							
 							ImGui::TreePop();
 						}
@@ -201,7 +230,7 @@ void Debugs::DrawEntityDebugger() {
 			ImGui::PopID();
 		}
 		
-		ImGui::TreePop();
+		ImGui::Unindent(); //at the end of collapsing header
 	}
 }
 
