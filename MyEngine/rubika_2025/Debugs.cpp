@@ -168,6 +168,28 @@ void Debugs::DrawEntityDebugger() {
 						
 						if (ImGui::TreeNode("Sprite Component")) {
 
+							//Changer sprite
+
+							auto textures = Globals::GetInstance()->GetTextureMgr()->GetTextureMap();
+							
+							if (ImGui::BeginCombo("Textures", component->textureData->TextureName.c_str())) {
+								for (auto t : textures) {
+									const bool isSelected = t.first == component->textureData->TextureName;
+									if (ImGui::Selectable(t.first.c_str(), isSelected)) {
+										component->SetTexture(t.first);
+									}
+
+									if (isSelected)
+										ImGui::SetItemDefaultFocus();
+								}
+
+								ImGui::EndCombo();
+							}
+							
+							else {
+								
+							}
+							
 							if (ImGui::BeginCombo("Animations", component->currentAnimationName.c_str())) {
 								for (auto t : component->textureData->AnimationData) {
 									const bool isSelected = t.first == component->currentAnimationName;
@@ -181,14 +203,10 @@ void Debugs::DrawEntityDebugger() {
 
 								ImGui::EndCombo();
 							}
-							
 							ImGui::Checkbox("Pause Animation", &component->bPause);
 							component->PlayAnimation(component->bPause);
 							
 							ImGui::Text("Current frame :%d", component->currentSpriteIndex);
-							
-							//Changer la texture du sprite <--------------
-							
 							ImGui::TreePop();
 						}
 					}
