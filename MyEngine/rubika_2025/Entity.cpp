@@ -29,3 +29,7 @@ void Entity::Draw(sf::RenderWindow& window) const {
         c->Draw(window);
     }
 }
+
+std::vector<IComponent*>& Entity::GetAllComponents() {
+    return components;
+}

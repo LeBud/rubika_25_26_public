@@ -46,6 +46,8 @@ public:
 	*/
 	void Draw(sf::RenderWindow& window) const;
 
+	std::vector<IComponent*>& GetAllComponents();
+	
 	std::string entityName;
 	std::vector<IComponent*> components;
 	bool bIsStarted = false;

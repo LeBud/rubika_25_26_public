@@ -7,6 +7,8 @@
 #include "Entity.h"
 #include "GameMgr.h"
 #include "Globals.h"
+#include "SpriteComponent.h"
+#include "TransformComponent.h"
 
 void Debugs::DrawDebugWindow()
 {
@@ -148,8 +150,7 @@ void Debugs::DrawEntityDebugger() {
 	}
 	
 	if (ImGui::TreeNode("Entities")) {
-		//Display chaque entité
-		//Display le nom de l'entity
+		
 		//Display chaque component de l'entity
 		//Pouvoir modifier dynamiquement les component (transform - sprite - etc.)
 		//Position dans le transform
@@ -159,6 +160,34 @@ void Debugs::DrawEntityDebugger() {
 			ImGui::PushID(e);
 			if (ImGui::TreeNode("##", e->entityName.c_str())) {
 				ImGui::Text("Entity : %s", e->entityName.c_str());
+
+				for (auto c : e->GetAllComponents()) {
+					if (c == e->GetComponent<SpriteComponent>()) {
+						if (ImGui::TreeNode("Sprite Component")) {
+							
+							ImGui::TreePop();
+						}
+					}
+
+					if (c == e->GetComponent<TransformComponent>()) {
+						if (ImGui::TreeNode("Transform Component")) {
+							sf::Vector2f pos = e->GetComponent<TransformComponent>()->GetPosition();
+
+							if (ImGui::DragFloat2("Position X/Y", &pos.x)) {
+								e->GetComponent<TransformComponent>()->SetPosition(pos);
+							}
+
+							float angle = e->GetComponent<TransformComponent>()->GetRotation().asDegrees();
+
+							if (ImGui::DragFloat("Rotation", &angle)) {
+								sf::Angle newAngle = sf::degrees(angle);
+								e->GetComponent<TransformComponent>()->SetRotation(newAngle);
+							}
+							
+							ImGui::TreePop();
+						}
+					}
+				}
 				
 				if (ImGui::Button("Delete Entity"))
 					clicked++;

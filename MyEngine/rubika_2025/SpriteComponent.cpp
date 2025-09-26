@@ -65,9 +65,12 @@ void SpriteComponent::UpdateAnimation(int currentSprite) {
     int currentY = currentAnimationData->StartY /*+ currentAnimationData->SizeY * currentSprite + currentAnimationData->OffsetY * currentSprite*/;
 
     sprite.setTextureRect(sf::IntRect({currentX, currentY}, {currentAnimationData->SizeX, currentAnimationData->SizeY}));
-    sprite.setOrigin({0,0});
+    sprite.setOrigin({(float)currentAnimationData->SizeX / 2,(float)currentAnimationData->SizeY / 2});
+
+    //Set Position, rotation and scale to transform position, rotation and scale
     sprite.setPosition(GetEntity().GetComponent<TransformComponent>()->GetPosition());
-    sprite.setScale({10,10});
+    sprite.setRotation(GetEntity().GetComponent<TransformComponent>()->GetRotation());
+    sprite.setScale(GetEntity().GetComponent<TransformComponent>()->GetScale());
 }
 
 void SpriteComponent::SetTexture(const std::string& textureName) {
