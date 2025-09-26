@@ -29,6 +29,7 @@ struct sAnimationData
  */ 
 struct sTextureData
 {
+	std::string TextureName;
 	sf::Texture Texture;
 	std::unordered_map<std::string, sAnimationData> AnimationData;
 	
@@ -57,6 +58,8 @@ public:
 	const std::unordered_map<std::string, sTextureData>& GetTextureMap() const;
 
 	void PopulateTextureUsedByEntity(const std::string& name, Entity& entity);
+	void RemoveEntityUsedTexture(const std::string& name, Entity& entity);
+	
 	std::vector<Entity*> GetTextureUsedByEntity(const std::string& name);
 	
 private:

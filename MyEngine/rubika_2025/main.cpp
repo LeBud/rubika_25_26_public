@@ -30,7 +30,7 @@ int main()
     Globals::GetInstance()->Init();
 
     //Ajout d'entité et de component a l'entité
-    Entity* testEntity = new Entity("Bonjour");
+    /*Entity* testEntity = new Entity("Bonjour");
     testEntity->AddComponent<TransformComponent>();
     testEntity->GetComponent<TransformComponent>()->SetPosition(sf::Vector2f{200,200});
     
@@ -40,9 +40,13 @@ int main()
         sprite->SetTexture("../Ressources/IsaacSprite.png");
         sprite->SetAnimation("Body_Vertical");
         sprite = nullptr;
-    }
+    }*/
     
-    Globals::GetInstance()->GetGameMgr()->AddEntity(testEntity);
+    //Globals::GetInstance()->GetGameMgr()->AddEntity(testEntity);
+
+    Globals::GetInstance()->CreateBaseEntity("Hello");
+    Globals::GetInstance()->CreateBaseEntity("Hola");
+    Globals::GetInstance()->CreateBaseEntity("Non Non");
     
     sf::Clock clock;
     clock.restart();

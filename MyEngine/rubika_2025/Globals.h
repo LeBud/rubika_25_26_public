@@ -26,16 +26,14 @@ public:
 	void Init();
 	void Destroy();
 	
-static Globals* GetInstance() {
+	static Globals* GetInstance() {
 		if (InstancePtr == nullptr)
 				InstancePtr = new Globals();
 		
 		return InstancePtr;
 	}
 
-	void Print() {
-		std::cout << "Instance generated" << std::endl;
-	}
+	void CreateBaseEntity(std::string baseEntityName);
 
 private:
 	TextureMgr* textureMgr;

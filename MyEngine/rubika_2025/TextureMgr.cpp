@@ -7,6 +7,8 @@
 #include <rapidxml/rapidxml_utils.hpp>
 #include <filesystem>
 
+#include "Entity.h"
+
 TextureMgr::TextureMgr()
 {
 	sf::Image img(sf::Vector2u(1, 1), sf::Color(255, 0, 255, 255));
@@ -34,6 +36,17 @@ const std::unordered_map<std::string, sTextureData>& TextureMgr::GetTextureMap()
 
 void TextureMgr::PopulateTextureUsedByEntity(const std::string& name, Entity& entity) {
 	textureUsedByEntity[name].push_back(&entity);
+}
+
+void TextureMgr::RemoveEntityUsedTexture(const std::string& name, Entity& entity) {
+	if (textureUsedByEntity[name].empty()) return;
+	
+	for (auto it = textureUsedByEntity[name].begin(); it != textureUsedByEntity[name].end(); ++it) {
+		if (*it == &entity) {
+			textureUsedByEntity[name].erase(it);
+			break;
+		}
+	}
 }
 
 std::vector<Entity*> TextureMgr::GetTextureUsedByEntity(const std::string& name) {
@@ -164,6 +177,11 @@ bool LoadTextureMetadata(const std::filesystem::path& path, sTextureData& textur
 
 bool TextureMgr::LoadTexture(const std::filesystem::path& path)
 {
+
+	if (Textures.contains(path.string())) {
+		return true;
+	}
+	
 	if (!std::filesystem::exists(path))
 	{
 		char msg[128] = {};
@@ -199,7 +217,9 @@ bool TextureMgr::LoadTexture(const std::filesystem::path& path)
 	{
 		return false;
 	}
-
+	
+	textureData.TextureName = path.string();
+		
 	Logger::Info("Texture Loaded");
 	return true;
 }

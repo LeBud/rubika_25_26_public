@@ -1,6 +1,8 @@
 #include "GameMgr.h"
 
 #include "Entity.h"
+#include "SpriteComponent.h"
+#include "TransformComponent.h"
 
 GameMgr::GameMgr()
 {}
@@ -41,4 +43,23 @@ void GameMgr::AddEntity(Entity* entity)
 
 	Entities.push_back(entity);
 	entity->Start();
+}
+
+void GameMgr::DestroyEntity(Entity* entity) {
+	if (!entity)
+		return;
+
+	for (auto it = Entities.begin(); it != Entities.end(); ++it) {
+		if (entity == *it) {
+			Entities.erase(it);
+			break;
+		}
+	}
+	
+	entity->Destroy();
+	delete entity;
+}
+
+std::vector<Entity*> GameMgr::GetEntities() {
+	return Entities;
 }

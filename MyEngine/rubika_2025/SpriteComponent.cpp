@@ -40,8 +40,6 @@ void SpriteComponent::Update(float fDeltaTime) {
             UpdateAnimation(currentSpriteIndex);
         }
     }
-
-    
 }
 
 void SpriteComponent::Draw(sf::RenderWindow& window) const {
@@ -49,6 +47,10 @@ void SpriteComponent::Draw(sf::RenderWindow& window) const {
 }
 
 void SpriteComponent::Destroy() {
+    if (textureData != nullptr) {
+        auto previousTexture = textureData->TextureName;
+        Globals::GetInstance()->GetTextureMgr()->RemoveEntityUsedTexture(previousTexture, GetEntity());
+    }
 }
 
 void SpriteComponent::PlayAnimation(bool bPause) {
@@ -69,6 +71,11 @@ void SpriteComponent::UpdateAnimation(int currentSprite) {
 }
 
 void SpriteComponent::SetTexture(const std::string& textureName) {
+    if (textureData != nullptr) {
+        auto previousTexture = textureData->TextureName;
+        Globals::GetInstance()->GetTextureMgr()->RemoveEntityUsedTexture(previousTexture, GetEntity());
+    }
+    
     textureData = &Globals::GetInstance()->GetTextureMgr()->GetTextureData(textureName);
     sprite.setTexture(textureData->Texture);
 

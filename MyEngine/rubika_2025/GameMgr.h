@@ -22,7 +22,9 @@ public:
 	void Draw(sf::RenderWindow& window);
 
 	void AddEntity(Entity* entity);
+	void DestroyEntity(Entity* entity);
 
+	std::vector<Entity*> GetEntities();
 	
 private:
 	std::vector<Entity*> Entities;
