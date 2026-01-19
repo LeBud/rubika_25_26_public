@@ -150,12 +150,7 @@ void Debugs::DrawEntityDebugger() {
 	}
 	
 	if (ImGui::CollapsingHeader("Entities")) {
-		
-		//Display chaque component de l'entity
-		//Pouvoir modifier dynamiquement les component (transform - sprite - etc.)
-		//Position dans le transform
-		//Animation, sprite dans le spriteComponent
-
+	
 		for (auto e : Globals::GetInstance()->GetGameMgr()->GetEntities()) {
 			ImGui::PushID(e);
 			if (ImGui::TreeNode("##", e->entityName.c_str())) {
