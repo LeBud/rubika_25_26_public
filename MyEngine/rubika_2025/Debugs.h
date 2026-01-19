@@ -30,6 +30,7 @@ private:
 	// You can add any method, member... you need in this file.
 	void DrawTextureMgr();
 	void DrawEntityDebugger();
+	void DrawRandomMgr();
 };
 
 #endif

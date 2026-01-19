@@ -39,8 +39,6 @@ void Debugs::DeleteInstance()
 	Instance = nullptr;
 }
 
-
-
 void Debugs::DrawDebug()
 {
 	// Draw your debug window here
@@ -62,6 +60,11 @@ void Debugs::DrawDebug()
 
 			if (ImGui::BeginTabItem("Entity")) {
 				DrawEntityDebugger();
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("RandomMgr")) {
+				DrawRandomMgr();
 				ImGui::EndTabItem();
 			}
 			
@@ -243,6 +246,25 @@ void Debugs::DrawEntityDebugger() {
 		
 		ImGui::Unindent(); //at the end of collapsing header
 	}
+}
+
+void Debugs::DrawRandomMgr() {
+	/*auto rdm = Globals::GetInstance()->GetRandomMgr();
+	
+	static int clicked = 0;
+	std::vector<unsigned> USequence;
+
+	if (ImGui::Button("Create random Sequence")) {
+		clicked++;
+		rdm->GetSequenceRandUInt(0,10);
+	}
+	if (clicked > 0)
+	{
+		for (auto u_sequence : rdm->USequence) {
+			ImGui::SameLine();
+			ImGui::Text("%u", u_sequence);
+		}
+	}*/
 }
 
 #endif

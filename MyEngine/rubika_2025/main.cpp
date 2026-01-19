@@ -32,6 +32,8 @@ int main()
     Globals::GetInstance()->CreateBaseEntity("Hello");
     Globals::GetInstance()->CreateBaseEntity("Hola");
     Globals::GetInstance()->CreateBaseEntity("Non Non");
+
+    Globals::GetInstance()->GetRandomMgr()->Init();
     
     sf::Clock clock;
     clock.restart();
