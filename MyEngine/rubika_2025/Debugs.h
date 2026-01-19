@@ -1,6 +1,9 @@
 #pragma once
 
+#ifdef USE_IMGUI
+
 #include "Logger.h"
+#include "TextureMgr.h"
 
 class Debugs
 {
@@ -17,11 +20,16 @@ private:
 public:
 	static void DrawDebugWindow();
 	static Logger& GetLogger();
-
+	static TextureMgr& GetTextureMgr();
+	
 	void DrawDebug();
-
+	
 private:
 	Logger Logger;
 
 	// You can add any method, member... you need in this file.
+	void DrawTextureMgr();
+	void DrawEntityDebugger();
 };
+
+#endif

@@ -1,5 +1,8 @@
 #include "TransformComponent.h"
 
+#include <iostream>
+#include <__msvc_ostream.hpp>
+
 #include "Entity.h"
 
 TransformComponent::TransformComponent(Entity& entity) : IComponent(entity)
@@ -53,8 +56,9 @@ sf::Vector2f TransformComponent::GetScale() const
 	return Scale;
 }
 
-void TransformComponent::Start()
-{}
+void TransformComponent::Start() {
+	std::cout << "TransformComponent::Start" << std::endl;
+}
 
 void TransformComponent::Update(float fDeltaTime)
 {}

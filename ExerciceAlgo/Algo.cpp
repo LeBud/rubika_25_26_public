@@ -40,3 +40,15 @@ void Algo::PrintResult() const
 		std::cout << "Nb Element : " << t.NbElement << "\tAvg Time(ms) " << t.TimeAvg << std::endl;
 	}
 }
+
+unsigned TestAlgo::ListEntities(const sTeam& team, std::vector<sEntity>& entities, std::vector<sEntity*>& out) {
+
+	out.reserve(entities.size());
+	
+	for (auto& e : entities) {
+		if (e.Team.hash != team.hash) continue;
+			out.push_back(&e);
+	}
+
+	return out.size();
+}

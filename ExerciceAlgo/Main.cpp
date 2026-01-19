@@ -44,6 +44,7 @@ int main()
 	std::vector<Algo*> algos;
 	{
 		// Add an implementation of Algo class here, using new
+		algos.push_back(new TestAlgo());
 	}
 
 	const unsigned retry = 25;
@@ -56,22 +57,19 @@ int main()
 			algo->StartComputation(nb);
 		}
 
-		for (unsigned i = 0; i < retry; ++i)
-		{
+		for (unsigned i = 0; i < retry; ++i){
 			std::cout << "\tTry " << i + 1 << " / " << retry << std::endl;
 			const sTeam& team = g_vTeamNames[PickupRandomTeamIndex()];
 
 			std::vector<sEntity> allEntities;
 			GenerateEntities(nb, allEntities);
 
-			for (Algo* algo : algos)
-			{
+			for (Algo* algo : algos){
 				algo->NewTestDuringComputation(team, allEntities);
 			}
 		}
 		
-		for (Algo* algo : algos)
-		{
+		for (Algo* algo : algos){
 			algo->EndComputation(retry);
 		}
 	}

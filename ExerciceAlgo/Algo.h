@@ -30,3 +30,14 @@ private:
 	std::string Name;
 	std::vector<sTimeCompare> ExecutionTimes;
 };
+
+
+//Algo Child
+class TestAlgo : public Algo {
+	
+public:
+	TestAlgo() : Algo("TestAlgo") {}
+
+private:
+	unsigned ListEntities(const sTeam& team, std::vector<sEntity>& entities, std::vector<sEntity*>& out) override;
+};
