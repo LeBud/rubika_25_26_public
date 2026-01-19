@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <__msvc_ostream.hpp>
 
 #include "IComponent.h"
 

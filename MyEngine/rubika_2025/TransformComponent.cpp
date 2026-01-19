@@ -1,8 +1,5 @@
 #include "TransformComponent.h"
-
 #include <iostream>
-#include <__msvc_ostream.hpp>
-
 #include "Entity.h"
 
 TransformComponent::TransformComponent(Entity& entity) : IComponent(entity)
