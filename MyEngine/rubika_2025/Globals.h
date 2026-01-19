@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+
+#include "RandomMgr.h"
 // This is a forward declaration :)
 // This is VERY useful and you must learn about it and use it as much as possible
 class TextureMgr;
@@ -38,8 +40,10 @@ public:
 private:
 	TextureMgr* textureMgr;
 	GameMgr* gameMgr;
+	RandomMgr* randomMgr;
 
 public:
 	TextureMgr* GetTextureMgr() const;
 	GameMgr* GetGameMgr() const;
+	RandomMgr* GetRandomMgr() const;
 };

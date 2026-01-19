@@ -15,6 +15,7 @@ Globals::~Globals() {
 void Globals::Init() {
     textureMgr = new TextureMgr();
     gameMgr = new GameMgr();
+    randomMgr = new RandomMgr();
 }
 
 void Globals::Destroy() {
@@ -46,6 +47,13 @@ TextureMgr* Globals::GetTextureMgr() const {
 GameMgr* Globals::GetGameMgr() const {
     if (gameMgr != nullptr)
         return gameMgr;
+    
+    return nullptr;
+}
+
+RandomMgr* Globals::GetRandomMgr() const {
+    if (randomMgr != nullptr)
+        return randomMgr;
     
     return nullptr;
 }

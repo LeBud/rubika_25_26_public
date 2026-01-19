@@ -40,7 +40,7 @@ int main()
     {
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_BLACK, "Frame %llu", uFrameCount);
 
-        int deltaTimeMicroS = clock.getElapsedTime().asMicroseconds();
+        int64_t deltaTimeMicroS = clock.getElapsedTime().asMicroseconds();
         float fDeltaTimeMS = (float)deltaTimeMicroS / 1000.f;
         float fDeltaTimeS = fDeltaTimeMS / 1000.f;
         sf::Time imGuiTime = clock.restart();

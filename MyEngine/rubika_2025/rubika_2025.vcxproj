@@ -214,6 +214,7 @@
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RandomMgr.cpp" />
     <ClCompile Include="SerializeVisitable.cpp" />
     <ClCompile Include="SerializeVisitor.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="IVisitor.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Profiler.h" />
+    <ClInclude Include="RandomMgr.h" />
     <ClInclude Include="SerializeVisitable.h" />
     <ClInclude Include="SerializeVisitor.h" />
     <ClInclude Include="SpriteComponent.h" />
