@@ -14,22 +14,22 @@ The purpose of this threshold is to (re)learn how to use SFML. You will have to 
 
 ## Threshold 1
 
-The purpose of this threshold is to implement a `TextureMgr`, which, as its name implies, will be responsible of the management of all texures in our engine. From requesting them, to use them, which implies loading (the texture itself and its metadata) and storing.
+The purpose of this threshold is to implement a `TextureMgr`, which, as its name implies, will be responsible for the management of all textures in our engine. From requesting them, to use them, which implies loading (the texture itself and its metadata) and storing.
 
 ### Step 0
 
 A new file has been added `TextureMgr.h` and contains the base functions that must be implemented. But first, let's focus on the way we must instantiate this manager.
-Another file has been added `Globals.h` which contains a unique entry point to the differents global variables we will need. This class must be accessible everywhere, so that any systems we will develop can use it. The way to do it is free, so you can use any method you want
-**hint:** If you have no clue about how to do it, you might search for the *singleton* design pattern and/or remember about what we said on smart pointers
+Another file has been added `Globals.h` which contains a unique entry point to the different global variables we will need. This class must be accessible everywhere, so that any systems we will develop can use it. The way to do it is free, so you can use any method you want
+**hint:** If you have no clue about how to do it, you might search for the *singleton* design pattern and/or remember what we said on smart pointers
 
-Once this part is done, don't forget to add this function in the life cycle of our engine.
+Once this part is done, don't forget to add this function to the life cycle of our engine.
 
 ### Step 1
 
-Now our manager is instanciate and **unique**, it is time to implement it. First, let's focus on the texture part. We will deal with metadata later.
+Now our manager is instanciated and **unique**, it is time to implement it. First, let's focus on the texture part. We will deal with metadata later.
 
 Two functions must be implemented :
-```
+```cpp
 	/*
 	 * Loads the texture using the given path, including its metadata.
 	 * Obviously, this function will also store the loaded data
@@ -44,23 +44,23 @@ Two functions must be implemented :
     const sTextureData& GetTextureData(const std::string& name) const;
 ```
 
-Besides those two functions that are mandatory (if you want to change the way the system, please ask me first. So that the entire class has the same architecture), you can add any method/member/... you want/need. But keep in mind few things, which will be true for the rest of the project :
-- A `Logger.h` file has been added. It provides a (small) working log system. Logs might be live saving and absolutely useless at the same time. They provide the user/developper with information about the various systems. But to be useful, logs must be added during the development and provide useful/self-explaining information.
-- As you can see in `Profiler.h` (and used in `Main.cpp`), you can use macro to create markers that can be displayed in [PIX](https://devblogs.microsoft.com/pix/download/). This is a useful tool that can help you track costing process... But such as Logs, it is more simple to add markers during the development (otherwise, the moment you will really need it, it will be empty). 
-- Try thinking about limit cases during all your development. By doing that, you will create robust system and limit the number of bugs you will create. For instance, in that case:
+Besides those two functions that are mandatory (if you want to change the way the system works, please ask me first. So that the entire class has the same architecture), you can add any method/member/... you want/need. But keep in mind few things, which will be true for the rest of the project :
+- A `Logger.h` file has been added. It provides a (small) working log system. Logs might be life saving and absolutely useless at the same time. They provide the user/developer with information about the various systems. But to be useful, logs must be added during the development and provide useful/self-explaining information.
+- As you can see in `Profiler.h` (and used in `Main.cpp`), you can use macro to create markers that can be displayed in [PIX](https://devblogs.microsoft.com/pix/download/). This is a useful tool that can help you track costly processes... But such as Logs, it is simpler to add markers during the development (otherwise, the moment you will really need it, it will be empty). 
+- Try thinking about limit cases during all your development. By doing that, you will create a robust system and limit the number of bugs you will create. For instance, in that case:
   * What will happen if the path doesn't exist
   * What will happen if there is no `sTextureData` that matches the texture name. Should it crash? Should we use a specific default texture?
   * ...
 
 ### Step 2
 
-Now, the `TextureMgr` has been implemented, it is time to test it. Replace the all texture creation process (and its use) by the manager. If everything works as entended, you shouldn't see any difference with your previous code.
+Now, the `TextureMgr` has been implemented, it is time to test it. Replace the all texture creation process (and its use) by the manager. If everything works as intended, you shouldn't see any difference with your previous code.
 
 ### Step 3
 
-The texture itself has been loaded and can be used but, we need more information about what it contains, the animation... Those data can be provided in different way depending of the file format we use. In our case, let's assume that those data are provided by a `xml` file next to the image (same name but different extension). 
+The texture itself has been loaded and can be used but, we need more information about what it contains, the animation... Those data can be provided in different ways depending on the file format we use. In our case, let's assume that those data are provided by a `xml` file next to the image (same name but different extension). 
 
-By looking at one of the provided `xml`, you will see that it provides a set of data about animations (coordinate of the rectangle that should be displayed, numer of frame, time...). The purpose of this step is to parse the file qnd store those data next to the texture (`IsaacSprite.xml` is the most complexe provided example).
+By looking at one of the provided `xml`, you will see that it provides a set of data about animations (coordinate of the rectangle that should be displayed, numer of frames, time...). The purpose of this step is to parse the file and store those data next to the texture (`IsaacSprite.xml` is the most complex provided example).
 
 **rapidxml** is part of the project and can be used by including 
 ```
@@ -74,7 +74,7 @@ By looking at one of the provided `xml`, you will see that it provides a set of 
 Here are some hints:
 - Before jumping to the implementation, take time to understand how a xml file is built. What is a node, an attribute, a parent, a child, a sibling, a value...
 - Here is the [doc of rapidxml](https://rapidxml.sourceforge.net/manual.html).
-- Use the content of `rapidxml/rapidxml_utils.hpp` to open the file (way more simple that using fopen)
+- Use the content of `rapidxml/rapidxml_utils.hpp` to open the file (way simpler that using fopen)
 - The lists of types that you should use:
   * rapidxml::file<> 
   * rapidxml::xml_document 
@@ -90,17 +90,17 @@ Here are some hints:
 
 ## Threshold 2
 
-The purpose of this threshold is to implement an entity-component system to understand how common game engines (such as Unreal Engine or Unity) work. By creating this system, a animated sprite component and using the `TextureMgr` we have created during **Threshold 1**, we will create a animation system that can be use on every entity in our engine to play any animation which respects the right format.
+The purpose of this threshold is to implement an entity-component system to understand how common game engines (such as Unreal Engine or Unity) work. By creating this system, an animated sprite component and using the `TextureMgr` we have created during **Threshold 1**, we will create a animation system that can be used on every entity in our engine to play any animation which respects the right format.
 
 ### Step 0
 
-Let's start with the entity/component part. An `Entity` is the base class of our system. Every thing is an entity (some entity will be special and will have access to more feature in the future) and those entities might have components that will add features, as we discussed in class.
+Let's start with the entity/component part. An `Entity` is the base class of our system. Every thing is an entity (some entities will be special and will have access to more features in the future) and those entities might have components that will add features, as we discussed in class.
 
 To do so, a new file has been added `Entity.h` which provides the global architecture of our entities.
 `IComponent.h` provides the base design of all our components. So, to create a new component, the new class must inherit from `IComponent` (take a look at the `TransformComponent` to see an implementation). Let's start with this component for now.
 
-About the `Entity` part, you first need to implement functions about its own life cycle. The all component system is lacking, so you must add it so an entity can use `IComponent`.
-```
+About the `Entity` part, you first need to implement functions about its own life cycle. The whole component system is lacking, so you must add it so an entity can use `IComponent`.
+```cpp
 /*
  * Constructor of the Entity class. The friendlyName parameter is for debugging purpose
  */
@@ -122,7 +122,7 @@ virtual void Start();
 virtual void Update(float fDeltaTime);
 
 /*
- * Last function that will be called before an entity is removed of the current scene.
+ * Last function that will be called before an entity is removed from the current scene.
  */
 virtual void Destroy();
 
@@ -135,19 +135,19 @@ void Draw(sf::RenderWindow& window) const;
 
 ### Step 1
 
-Our `Entity` is ready and can be integrated to the engine flow.
+Our `Entity` is ready and can be integrated into the engine flow.
 To do so, look at the `GameMgr.h`and `GameMgr.cpp` that have been added to the project and to the `Globals` class. 
 
-**You must init this manager in the same way you did for the `TextureMgr`. The more you are coherent with yourself, the cleaer you code will be.**
+**You must init this manager in the same way you did for the `TextureMgr`. The more you are coherent with yourself, the clearer your code will be.**
 
 An `Update` function and a `Draw` function have been added to the `Globals` class. Implement it and call them at the right moment in your flow.
 
-We now have a working flow but it lacks of component. It is time to add them.
+We now have a working flow but it lacks components. It is time to add them.
 
 ### Step 2
 
-Looking back at `Entity.h`, there are still functions that have not been implemented, the intersting ones:
-```
+Looking back at `Entity.h`, there are still functions that have not been implemented, the interesting ones:
+```cpp
 /*
 * Add a new component of type C to the list of components.
 * Be sure that we don't have the same component already registered.
@@ -157,7 +157,7 @@ template <typename C>
 C* AddComponent();
 
 /*
-* Get an existing component of type C that has previously be added.
+* Get an existing component of type C that has previously been added.
 * If an error occurs or if there is no component of type C, returns nullptr.
 * Otherwise, returns its pointer.
 */
@@ -166,19 +166,19 @@ C* GetComponent() const;
 ```
 
 **hints:**
-- As we discussed in class, templated functions cannot be implemented in cpp. You have to define them in the same header as their declaration. A good way to do it, is to create `hxx` files that we be included at the end of your `.h` which defines those functions.
+- As we discussed in class, templated functions cannot be implemented in cpp. You have to define them in the same header as their declaration. A good way to do it, is to create `hxx` files that will be included at the end of your `.h` which defines those functions.
 - To avoid having, awful errors in your console because of template, it is a good habit to use static checks with your template to ensure the given type will work with your implementation. For instance, in your case we want C to inherit from `IComponent`. This check can be made using `static_assert` and `std::is_base_of` (and the `requires` keyword in C++20).
 
 ### Step 3
 
-Test your implementation by adding a `TranformComponent` to all entities by default.
+Test your implementation by adding a `TransformComponent` to all entities by default.
 
 ### Step 4
 
 Now, it is time to use every thing at once. Let's create a custom component `SpriteComponent` that will use a `sTextureData` to play an animation.
 To do so, a `SpriteComponent.h` file has been added and contains the global architecture of this component (in the future, we will modify the inheritance tree to add a `IDrawable` layer between `IComponent` and `SpriteComponent`, so that lots of components can share the same code).
 
-```
+```cpp
 virtual void Start() override;
 
 virtual void Update(float fDeltaTime) override;
@@ -196,19 +196,19 @@ void PlayAnimation(bool bPause);
 To play an animation contained in `sTextureData`, here are information about the internal structure:
 - **X, Y** : Coordinates of the top-left corner of the animation in the texture
 - **SizeX, SizeY**: Size of one frame of the animation
-- **OffsetX, OffsetY** : Offset between two frames of an animation (distance between the right/botton side of the previous frame and the left/up side of the next frame)
-- **SpriteNum** : Nunber of frame in the all animation
+- **OffsetX, OffsetY** : Offset between two frames of an animation (distance between the right/bottom side of the previous frame and the left/up side of the next frame)
+- **SpriteNum** : Nunber of frames in the whole animation
 - **SpritesOnLine** : Number of frame on one line
 - **Reverted**: Is the frame must be reverted (horizontal)
 - **TimeBetweenAnimation**: Time between two frame
 
 **Do not forget to use the `TransformComponent` to display the sprite at the right place**
 
-At this state, you should be able to create an entity, assign an texture to it and play an animation.
+At this state, you should be able to create an entity, assign a texture to it and play an animation.
 
 ## Threshold 3
 
-Congratulation, you have created you first component (and your first system in a way).
+Congratulation, you have created your first component (and your first system in a way).
 The purpose of this Threshold is now to create some debug windows using `ImGui` to control them.
 
 ### Step 0
@@ -250,26 +250,26 @@ Let's continue with a debug panel : create a tab to inspect all entity in our sc
 
 ## Threshold 4
 
-The purpose of this threshold is to discover a very important design patterns : 
+The purpose of this threshold is to discover a very important design pattern : 
 - **visitor :** It consists in splitting logic and data structure.
-A small object (the visitor) will run over the entire object hierarchy, element after element (the visitables). For each visitable, the visitor will execute some logic and will visit the next visitable (if applicable), letting the all hieratchy untouched. 
+A small object (the visitor) will run over the entire object hierarchy, element after element (the visitables). For each visitable, the visitor will execute some logic and will visit the next visitable (if applicable), letting the all hierarchy untouched. 
 - **factory :** It consists in creating a specific object based on a string, an id, an enum...
 
 ### Step 0
 
-We are going to use the visitor design pattern to serialize an entity. A visitor will be created that will visit an entity and its components to save their current state in a xml file that will be save on your disk. **Only the mandatory data to retrieve the same state must be serialized**.
+We are going to use the visitor design pattern to serialize an entity. A visitor will be created that will visit an entity and its components to save their current state in a xml file that will be saved on your disk. **Only the mandatory data to retrieve the same state must be serialized**.
 
-To do so, lots of file has been added to the project:
+To do so, lots of files have been added to the project:
 - `Ivisitable.h` and `IVisitor.h` contain the base class for visitor/visitable objects
 - `SerializeVisitor.h` contains the visitor that will visit the entity hierarchy to save its state. 
 - `SerializeVisitable.h` contains the base that must be inherited by all our objects that must be serialized.
 - `SerializeVisitor.cpp` and `SerializeVisitable.cpp` contain the implementation of the corresponding classes.
 
-To resolve the polymorphic aspect, a visitor and a visitable must works by pair.
-- The `visitor` doesn't know any thing about the current hierarchy, what it is processing... So it's job is to... start the visit and finish it. The rest is handled by the `visitable`.
-- The `visitable`must only accept a `visitor`, do it is supposed to do and call the visitor over its own children. In our case, it will serialize itself and then use the visit function from the `visitor` on its children so that they could be serialized.
+To resolve the polymorphic aspect, a visitor and a visitable must work by pair.
+- The `visitor` doesn't know anything about the current hierarchy, what it is processing... So its job is to... start the visit and finish it. The rest is handled by the `visitable`.
+- The `visitable` must only accept a `visitor`, do what it is supposed to do and call the visitor over its own children. In our case, it will serialize itself and then use the visit function from the `visitor` on its children so that they could be serialized.
 
-The `visitor` part has already be implemented to guide you, you only need to implement the `visitable` part on your `Entity` and your `component`.
+The `visitor` part has already been implemented to guide you, you only need to implement the `visitable` part on your `Entity` and your `component`.
 
 1. In your `Entity` and your components, add the `SerializeVisitable` as a parent of your class
 2. A macro `GENERATE_SERIALIZE_TOKEN` has been added. It must be added (with the right name) in your header, inside a public part.
@@ -289,9 +289,9 @@ To do so, two steps are needed:
 - Create a `Factory` class that can create any component or entity using its type name (that has been generated using the `GENERATE_SERIALIZE_TOKEN`) function.
 - Implement the `Deserialize` part of our visitable to init any component using the right node of the xml.
 
-**The Serialze function and the Deserialize one must be symetric. Everything written must be read**
+**The Serialze function and the Deserialize one must be symmetric. Everything written must be read**
 
-1. For now, the simplest implemetation of the `Factory` design pattern will be sufficient (using a big if/else which will test all possible name to determine which one must be created). A more complex one will be implemented later using code generarion...
+1. For now, the simplest implementation of the `Factory` design pattern will be sufficient (using a big if/else which will test all possible name to determine which one must be created). A more complex one will be implemented later using code generation...
 To do so, implement the function
 ```
 static IComponent* FactoryByName(const char* serializeToken, Entity& entity);
@@ -301,8 +301,8 @@ static IComponent* FactoryByName(const char* serializeToken, Entity& entity);
 ```
 virtual void Accept(DeserializeVisitor* visitor, rapidxml::xml_node<>* node) override;
 ```
-This function will be called for each created component (and the entity itself) with the right xml node. It must use this node to retrieve all stored data and initialize itsef. Then it **must** call the `Visit` function over its own childer if applicable
+This function will be called for each created component (and the entity itself) with the right xml node. It must use this node to retrieve all stored data and initialize itself. Then it **must** call the `Visit` function over its own childen if applicable
 
 ### Step 4
 
-Now you should be able to create a working entity using an registered xml file. You can know add features in your `Debugs` class to have access to those features. 
+Now you should be able to create a working entity using a registered xml file. You can now add features in your `Debugs` class to have access to those features. 
