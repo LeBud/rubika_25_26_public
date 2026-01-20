@@ -25,7 +25,7 @@ bool DrunkardWalk::Generate() {
     unsigned cell = pos->y * SizeY + pos->x;
     Cells.at(cell) = 1;
 
-    for (unsigned i = 0; i < Distance; i++) {
+    for (unsigned i = 0; i < Distance * Iteration; i++) {
         unsigned dir = Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,3);
         switch (dir) {
             case 0:
@@ -57,7 +57,7 @@ void DrunkardWalk::GenerateTexture(sf::Texture& texture) const {
     sf::Image image;
     image.resize({SizeX,SizeY});
     for (unsigned i = 0; i < SizeX * SizeY; i++) {
-        image.setPixel({i % SizeY, i / SizeY}, Cells[i] == 1 ? sf::Color::White : sf::Color::Black);
+        image.setPixel({i % SizeY, i / SizeY}, Cells[i] == 1 ? sf::Color::White : sf::Color::Red);
     }
 
     texture.resize({SizeX,SizeY});
@@ -65,11 +65,10 @@ void DrunkardWalk::GenerateTexture(sf::Texture& texture) const {
 }
 
 sf::Sprite DrunkardWalk::Sprite() {
-    //GenerateTexture(Texture);
     sf::Sprite sprite(Texture);
 
     sprite.setOrigin({static_cast<float>(SizeX) / 2, static_cast<float>(SizeY) / 2});
     sprite.setScale({1.f,1.f});
-    sprite.setPosition({200.f,200.f});
+    sprite.setPosition({800.f,200.f});
     return sprite;
 }
