@@ -7,7 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7af6d27-f453-4877-9ea2-472514a44909" name="Changes" comment="" />
+    <list default="true" id="b7af6d27-f453-4877-9ea2-472514a44909" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/DrunkardWalk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/DrunkardWalk.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -313,7 +316,7 @@
       <workItem from="1760450994105" duration="10000" />
       <workItem from="1760451194720" duration="670000" />
       <workItem from="1768817736411" duration="21022000" />
-      <workItem from="1768900430558" duration="25060000" />
+      <workItem from="1768900430558" duration="25531000" />
     </task>
     <servers />
   </component>
