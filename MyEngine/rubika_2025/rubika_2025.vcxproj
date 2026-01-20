@@ -209,6 +209,7 @@
     <ClCompile Include="..\Dependencies\Imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Dependencies\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Debugs.cpp" />
+    <ClCompile Include="DrunkardWalk.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="Globals.cpp" />
@@ -227,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debugs.h" />
+    <ClInclude Include="DrunkardWalk.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="Globals.h" />

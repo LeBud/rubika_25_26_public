@@ -8,11 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7af6d27-f453-4877-9ea2-472514a44909" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/rubika_2025/DrunkardWalk.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rubika_2025/DrunkardWalk.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rubika_2025.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rubika_2025/Debugs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Debugs.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rubika_2025/RandomMgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/RandomMgr.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rubika_2025/RandomMgr.h" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/RandomMgr.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Debugs.h" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Debugs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/rubika_2025.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/rubika_2025.vcxproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +232,7 @@
       <workItem from="1760450994105" duration="10000" />
       <workItem from="1760451194720" duration="670000" />
       <workItem from="1768817736411" duration="21022000" />
-      <workItem from="1768900430558" duration="7375000" />
+      <workItem from="1768900430558" duration="17280000" />
     </task>
     <servers />
   </component>

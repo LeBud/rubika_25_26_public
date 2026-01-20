@@ -23,7 +23,6 @@ public:
 	static TextureMgr& GetTextureMgr();
 	
 	void DrawDebug();
-	
 private:
 	Logger Logger;
 

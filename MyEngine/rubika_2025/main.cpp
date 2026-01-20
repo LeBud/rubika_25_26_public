@@ -3,6 +3,7 @@
 #include <Imgui/imgui-SFML.h>
 
 #include "Debugs.h"
+#include "DrunkardWalk.h"
 #include "Entity.h"
 #include "GameMgr.h"
 #include "Profiler.h"
@@ -34,6 +35,12 @@ int main()
     Globals::GetInstance()->CreateBaseEntity("Non Non");
 
     Globals::GetInstance()->GetRandomMgr()->Init();
+    Globals::GetInstance()->GetRandomMgr()->CreateInstance();
+
+    DrunkardWalk* drunk = new DrunkardWalk(256,256,5,25,1);
+    if (drunk->Generate()) {
+        std::cout << "Generate drunkard walk!" << std::endl;
+    }
     
     sf::Clock clock;
     clock.restart();
