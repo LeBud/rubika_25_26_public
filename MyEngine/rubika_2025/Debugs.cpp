@@ -81,19 +81,19 @@ void Debugs::DrawTextureMgr() {
 	
 	for (auto t : tex->GetTextureMap()) {
 		if (ImGui::TreeNode(t.first.c_str())) {
-			ImGui::Text("Texture width / height : %d", t.second.Texture.getSize().x);
+			ImGui::Text("Texture width / height : %u", t.second.Texture.getSize().x);
 			ImGui::SameLine();
-			ImGui::Text(", %d", t.second.Texture.getSize().y);
+			ImGui::Text(", %u", t.second.Texture.getSize().y);
 
-			ImGui::Text("Texture Size : %d mb", t.second.Texture.getMaximumSize());
-			ImGui::Text("Animations count : %d", t.second.AnimationData.size());
+			ImGui::Text("Texture Size : %u mb", t.second.Texture.getMaximumSize());
+			ImGui::Text("Animations count : %zu", t.second.AnimationData.size());
 			
 			//Insérer ici par qui il est utilisé
 			if (ImGui::TreeNode("Used By")) {
 				auto used = Globals::GetInstance()->GetTextureMgr()->GetTextureUsedByEntity(t.first);
 
 				if (!used.empty()) {
-					ImGui::Text("Used By : %d", used.size());
+					ImGui::Text("Used By : %zu", used.size());
 					
 					for (auto u : used) {
 						ImGui::Text("Entity : %s", u->entityName.c_str());
@@ -249,20 +249,56 @@ void Debugs::DrawEntityDebugger() {
 }
 
 void Debugs::DrawRandomMgr() {
-	/*auto rdm = Globals::GetInstance()->GetRandomMgr();
+	auto rdm = Globals::GetInstance()->GetRandomMgr();
 	
 	static int clicked = 0;
-	std::vector<unsigned> USequence;
 
-	if (ImGui::Button("Create random Sequence")) {
+	if (ImGui::Button("Create Random Instance")) {
 		clicked++;
-		rdm->GetSequenceRandUInt(0,10);
+		rdm->CreateInstance();
 	}
-	if (clicked > 0)
+	
+	if (ImGui::BeginTable("table1", 5))
 	{
-		for (auto u_sequence : rdm->USequence) {
+		// We could also set ImGuiTableFlags_SizingFixedFit on the table and all columns will default to ImGuiTableColumnFlags_WidthFixed.
+		ImGui::TableSetupColumn("Seed", ImGuiTableColumnFlags_WidthFixed, 200.0f);
+		ImGui::TableSetupColumn("RandUInt", ImGuiTableColumnFlags_WidthFixed, 100.0f);
+		ImGui::TableSetupColumn("RandInt32", ImGuiTableColumnFlags_WidthFixed, 100.0f);
+		ImGui::TableSetupColumn("RandDouble", ImGuiTableColumnFlags_WidthFixed, 100.0f);
+		ImGui::TableSetupColumn("RandNormalDouble", ImGuiTableColumnFlags_WidthFixed);
+		ImGui::TableHeadersRow();
+		for (auto rdmId : rdm->instanceMap)
+		{
+			ImGui::TableNextRow();
+			for (int column = 0; column < 5; column++)
+			{
+				ImGui::TableSetColumnIndex(column);
+				if (column == 0) {
+					ImGui::Text("%u", rdmId.first);
+				}
+				if (column == 1) {
+					ImGui::Text("%u", rdmId.second->RandUInt(0,10));
+				}
+				if (column == 2) {
+					ImGui::Text("%d", rdmId.second->RandInt32(0,10));
+				}
+				if (column == 3) {
+					ImGui::Text("%f", rdmId.second->RandDouble(0,10));
+				}
+				if (column == 4) {
+					ImGui::Text("%f", rdmId.second->RandNormalDouble(0,10));
+				}
+			}
+		}
+		ImGui::EndTable();
+	}
+	
+	/*if (clicked > 0)
+	{
+		for (auto u_sequence : rdm->instanceMap) {
+			ImGui::Text("%u", u_sequence.first);
 			ImGui::SameLine();
-			ImGui::Text("%u", u_sequence);
+			ImGui::Text("%f", u_sequence.second->RandDouble(0,10));
 		}
 	}*/
 }

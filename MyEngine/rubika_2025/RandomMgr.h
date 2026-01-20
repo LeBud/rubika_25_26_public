@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include <unordered_map>
+
 #include "RandomInstance.h"
 
 class RandomMgr {
@@ -18,4 +20,6 @@ public:
     RandomInstance* GetInstance(InstanceId instanceId) const;
 
     static uint32_t GenerateRandomSeed();
+
+    std::unordered_map<InstanceId, RandomInstance*> instanceMap;
 };
