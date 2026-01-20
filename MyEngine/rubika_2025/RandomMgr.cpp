@@ -10,8 +10,9 @@ void RandomMgr::Shut() {
 RandomMgr::InstanceId RandomMgr::CreateInstance() {
     RandomInstance* instance = new RandomInstance();
     instance->SetSeed(GenerateRandomSeed());
-    instanceMap.try_emplace(instance->GetSeed(), instance);
-    return instance->GetSeed();
+    instanceMap.try_emplace(idValue, instance);
+    idValue++;
+    return idValue;
 }
 
 void RandomMgr::DestroyInstance(InstanceId instanceId) {
@@ -21,7 +22,11 @@ void RandomMgr::DestroyInstance(InstanceId instanceId) {
 }
 
 RandomInstance* RandomMgr::GetInstance(InstanceId instanceId) const {
-    return instanceMap.at(instanceId);
+    auto it = instanceMap.find(instanceId);
+    if (it == instanceMap.cend()) {
+        return nullptr;
+    }
+    return it->second;
 }
 
 uint32_t RandomMgr::GenerateRandomSeed() { //Generate once, there is case were we will need to regenerate a seed, but we try to limit it mostly

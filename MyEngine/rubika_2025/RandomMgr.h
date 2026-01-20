@@ -21,5 +21,6 @@ public:
 
     static uint32_t GenerateRandomSeed();
 
+    InstanceId idValue = 0;
     std::unordered_map<InstanceId, RandomInstance*> instanceMap;
 };

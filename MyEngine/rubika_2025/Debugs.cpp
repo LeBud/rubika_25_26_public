@@ -251,11 +251,15 @@ void Debugs::DrawEntityDebugger() {
 void Debugs::DrawRandomMgr() {
 	auto rdm = Globals::GetInstance()->GetRandomMgr();
 	
-	static int clicked = 0;
-
 	if (ImGui::Button("Create Random Instance")) {
-		clicked++;
 		rdm->CreateInstance();
+	}
+
+	if (ImGui::Button("Delete Last Instance")) {
+		auto last = rdm->GetInstance(rdm->idValue - 1);
+		if (last != nullptr) {
+			rdm->DestroyInstance(rdm->idValue - 1);
+		}
 	}
 	
 	if (ImGui::BeginTable("table1", 5))
@@ -292,15 +296,6 @@ void Debugs::DrawRandomMgr() {
 		}
 		ImGui::EndTable();
 	}
-	
-	/*if (clicked > 0)
-	{
-		for (auto u_sequence : rdm->instanceMap) {
-			ImGui::Text("%u", u_sequence.first);
-			ImGui::SameLine();
-			ImGui::Text("%f", u_sequence.second->RandDouble(0,10));
-		}
-	}*/
 }
 
 #endif
