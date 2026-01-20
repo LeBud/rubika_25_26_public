@@ -1,5 +1,7 @@
 #include "DrunkardWalk.h"
 
+#include <SFML/Graphics/Image.hpp>
+
 #include "Globals.h"
 
 DrunkardWalk::DrunkardWalk(unsigned sizeX, unsigned sizeY, unsigned iteration, unsigned distance,
@@ -21,9 +23,9 @@ bool DrunkardWalk::Generate() {
         Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,SizeY-1));
 
     unsigned cell = pos->y * SizeY + pos->x;
-    Cells[cell] = 1;
+    Cells.at(cell) = 1;
 
-    for (unsigned i = 0; i < Iteration; i++) {
+    for (unsigned i = 0; i < Distance; i++) {
         unsigned dir = Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,3);
         switch (dir) {
             case 0:
@@ -44,9 +46,30 @@ bool DrunkardWalk::Generate() {
         cell = pos->y * SizeY + pos->x;
         Cells[cell] = 1;
     }
+
+    GenerateTexture(Texture);
     
     return true;
 }
 
 void DrunkardWalk::GenerateTexture(sf::Texture& texture) const {
+    //std::vector<sf::> pixels;
+    sf::Image image;
+    image.resize({SizeX,SizeY});
+    for (unsigned i = 0; i < SizeX * SizeY; i++) {
+        image.setPixel({i % SizeY, i / SizeY}, Cells[i] == 1 ? sf::Color::White : sf::Color::Black);
+    }
+
+    texture.resize({SizeX,SizeY});
+    texture.loadFromImage(image);
+}
+
+sf::Sprite DrunkardWalk::Sprite() {
+    //GenerateTexture(Texture);
+    sf::Sprite sprite(Texture);
+
+    sprite.setOrigin({static_cast<float>(SizeX) / 2, static_cast<float>(SizeY) / 2});
+    sprite.setScale({1.f,1.f});
+    sprite.setPosition({200.f,200.f});
+    return sprite;
 }

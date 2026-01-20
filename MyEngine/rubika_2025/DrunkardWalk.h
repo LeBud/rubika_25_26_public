@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics/Texture.hpp>
 #include <vector>
+#include <SFML/Graphics/Sprite.hpp>
 
 class DrunkardWalk {
 public:
@@ -9,6 +10,7 @@ public:
     bool Generate();
     void GenerateTexture(sf::Texture& texture) const;
 
+    sf::Sprite Sprite();
 private:
     
     unsigned SizeX;
@@ -18,4 +20,5 @@ private:
     unsigned SpawnNumber;
 
     std::vector<int> Cells;
+    sf::Texture Texture;
 };

@@ -4,15 +4,10 @@
 
 #include "Debugs.h"
 #include "DrunkardWalk.h"
-#include "Entity.h"
 #include "GameMgr.h"
 #include "Profiler.h"
 
-#include "Logger.h"
 #include "Globals.h"
-#include "SpriteComponent.h"
-#include "TextureMgr.h"
-#include "TransformComponent.h"
 
 unsigned long long uFrameCount = 0;
 
@@ -87,6 +82,7 @@ int main()
         window.clear();
 
         //========================= Update du GameMgr =========================
+        window.draw(drunk->Sprite());
         Globals::GetInstance()->GetGameMgr()->Update(fDeltaTimeS);
         Globals::GetInstance()->GetGameMgr()->Draw(window);
         
