@@ -18,40 +18,50 @@ DrunkardWalk::DrunkardWalk(unsigned sizeX, unsigned sizeY, unsigned iteration, u
 }
 
 bool DrunkardWalk::Generate() {
-    sf::Vector2<unsigned>* originalPos = new sf::Vector2<unsigned>(
-        Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,SizeX-1),
-        Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,SizeY-1));
-    
     for (unsigned i = 0; i < Iteration; i++) {
-        sf::Vector2<unsigned>* pos = originalPos;
-        unsigned cell = pos->y * SizeY + originalPos->x;
-        Cells.at(cell) = 1;
+        sf::Vector2<unsigned> originalPos(
+            Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,SizeX-1),
+            Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,SizeY-1));
+        
+        for (unsigned i = 0; i < SpawnNumber; i++) {
+            sf::Vector2<unsigned> pos = originalPos;
+            unsigned cell = pos.y * SizeY + originalPos.x;
+            Cells.at(cell) = 1;
 
-        for (unsigned i = 0; i < Distance; i++) {
-            unsigned dir = Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,3);
-            switch (dir) {
-                case 0:
-                    pos->y++;
-                break;
-                case 1:
-                    pos->x++;
-                break;
-                case 2:
-                    pos->y--;
-                break;
-                case 3:
-                    pos->x--;
-                break;
-                default:
-                    return false;
+            for (unsigned i = 0; i < Distance; i++) {
+                unsigned dir = Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,3);
+                switch (dir) {
+                    case 0:
+                        pos.y++;
+                    break;
+                    case 1:
+                        pos.x++;
+                    break;
+                    case 2:
+                        pos.y--;
+                    break;
+                    case 3:
+                        pos.x--;
+                    break;
+                    default:
+                        return false;
+                }
+                if (pos.y >= SizeY) {
+                    Distance--;
+                    continue;
+                }
+                if (pos.x >= SizeX) {
+                    Distance--;
+                    continue;
+                }
+                cell = pos.y * SizeY + pos.x;
+                Cells[cell] = 1;
             }
-            cell = pos->y * SizeY + pos->x;
-            Cells[cell] = 1;
         }
     }
 
     GenerateTexture(Texture);
-    
+    Generated = true;
     return true;
 }
 
@@ -62,9 +72,9 @@ void DrunkardWalk::GenerateTexture(sf::Texture& texture) const {
     for (unsigned i = 0; i < SizeX * SizeY; i++) {
         image.setPixel({i % SizeY, i / SizeY}, Cells[i] == 1 ? sf::Color::White : sf::Color::Red);
     }
-
     texture.resize({SizeX,SizeY});
     texture.loadFromImage(image);
+    texture.update(image);
 }
 
 sf::Sprite DrunkardWalk::Sprite() {

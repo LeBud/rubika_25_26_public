@@ -3,6 +3,7 @@
 #include <unordered_map>
 
 #include "Procedural/CellularAutomata.h"
+#include "Procedural/DrunkardWalk.h"
 #include "Procedural/RandomInstance.h"
 
 class RandomMgr {
@@ -22,11 +23,12 @@ public:
 
     static uint32_t GenerateRandomSeed();
 
-    void GenerateCellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold,
-    unsigned iteration);
+    void GenerateDrunkardWalk(unsigned sizeX, unsigned sizeY, unsigned iteration, unsigned distance, unsigned spawnNumber);
+    void GenerateCellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold,unsigned iteration);
     
     InstanceId idValue = 0;
     std::unordered_map<InstanceId, RandomInstance*> instanceMap;
 
     CellularAutomata* cellular;
+    DrunkardWalk* drunk;
 };

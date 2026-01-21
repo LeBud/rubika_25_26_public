@@ -3,7 +3,7 @@
 #include "Debugs.h"
 
 #include <ImGui/imgui.h>
-
+#include <ImGui/imgui-SFML.h>
 #include "Entity.h"
 #include "Manager/GameMgr.h"
 #include "Globals.h"
@@ -75,7 +75,23 @@ void Debugs::DrawDebug()
 	ImGui::End();
 
 	if (ImGui::Begin("Cellular Automata")) {
+		auto rdm = Globals::GetInstance()->GetRandomMgr();
+
+		static int size = 256;
+		ImGui::SliderInt("Size X", &size, 16, 512);
+		ImGui::SliderInt("Size Y", &size, 16, 512);
+		static int iteration = 5;
+		ImGui::SliderInt("Iteration", &iteration, 1, 25);
+		static int distance = 25;
+		ImGui::SliderInt("Distance", &distance, 5, 50);
+		static int spawnNum = 1;
+		ImGui::SliderInt("Spawn number", &spawnNum, 1, 24);
 		
+		if (ImGui::Button("Generate Drunkard Walk"))
+			rdm->GenerateDrunkardWalk(size,size,iteration,distance,spawnNum);
+
+		if (rdm->drunk != nullptr)
+			ImGui::Image(rdm->drunk->Sprite(), {250,250});
 	}
 	ImGui::End();
 }

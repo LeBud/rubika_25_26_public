@@ -4,7 +4,6 @@
 #include "Procedural/RandomInstance.h"
 
 void RandomMgr::Init() {
-    
 }
 
 void RandomMgr::Shut() {
@@ -38,8 +37,18 @@ uint32_t RandomMgr::GenerateRandomSeed() { //Generate once, there is case were w
     return rd();
 }
 
+void RandomMgr::GenerateDrunkardWalk(unsigned sizeX, unsigned sizeY, unsigned iteration, unsigned distance, unsigned spawnNumber) {
+    if (instanceMap.empty()) {
+        CreateInstance();
+    }
+    drunk = new DrunkardWalk(sizeX,sizeY,iteration,distance,spawnNumber);
+    if (drunk->Generate()) {
+        
+    }
+}
+
 void RandomMgr::GenerateCellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold,
-    unsigned iteration) {
+                                         unsigned iteration) {
 
     cellular = new CellularAutomata(sizeX, sizeY, spawnPercent, threshold, iteration);
     cellular->Generate();

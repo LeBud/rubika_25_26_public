@@ -30,14 +30,6 @@ int main()
     Globals::GetInstance()->CreateBaseEntity("Hola");
     Globals::GetInstance()->CreateBaseEntity("Non Non");
 
-    Globals::GetInstance()->GetRandomMgr()->Init();
-    Globals::GetInstance()->GetRandomMgr()->CreateInstance();
-
-    /*DrunkardWalk* drunk = new DrunkardWalk(256,256,5,25,1);
-    if (drunk->Generate()) {
-        std::cout << "Generate drunkard walk!" << std::endl;
-    }*/
-
     CellularAutomata* cell = new CellularAutomata(256,256,0.6f,5,5);
     cell->Generate();
     

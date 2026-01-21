@@ -11,6 +11,7 @@ public:
     void GenerateTexture(sf::Texture& texture) const;
 
     sf::Sprite Sprite();
+    bool Generated;
 private:
     
     unsigned SizeX;
@@ -18,6 +19,7 @@ private:
     unsigned Iteration;
     unsigned Distance;
     unsigned SpawnNumber;
+
 
     std::vector<int> Cells;
     sf::Texture Texture;
