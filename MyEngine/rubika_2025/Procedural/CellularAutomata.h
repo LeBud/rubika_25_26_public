@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
 class CellularAutomata {
@@ -8,6 +9,7 @@ public:
     bool Generate();
     void GenerateTexture(sf::Texture& textures) const;
 
+    sf::Sprite Sprite();
 private:
 
     unsigned SizeX;
@@ -15,4 +17,7 @@ private:
     double SpawnPercent;
     unsigned NeighborThreshold;
     unsigned Iteration;
+
+    std::vector<int> Cells;
+    sf::Texture Texture;
 };

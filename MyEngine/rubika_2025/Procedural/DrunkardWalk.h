@@ -11,7 +11,6 @@ public:
     void GenerateTexture(sf::Texture& texture) const;
 
     sf::Sprite Sprite();
-    bool Generated;
 private:
     
     unsigned SizeX;

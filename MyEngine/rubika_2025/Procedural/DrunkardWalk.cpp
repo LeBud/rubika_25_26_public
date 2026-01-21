@@ -61,7 +61,6 @@ bool DrunkardWalk::Generate() {
     }
 
     GenerateTexture(Texture);
-    Generated = true;
     return true;
 }
 

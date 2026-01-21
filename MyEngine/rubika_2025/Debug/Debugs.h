@@ -27,6 +27,8 @@ private:
 	Logger Logger;
 
 	// You can add any method, member... you need in this file.
+	void DrawDrunkConsole();
+	void DrawCellularConsole();
 	void DrawTextureMgr();
 	void DrawEntityDebugger();
 	void DrawRandomMgr();
