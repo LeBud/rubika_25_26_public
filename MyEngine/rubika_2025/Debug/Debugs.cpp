@@ -101,7 +101,7 @@ void Debugs::DrawDrunkConsole() {
 }
 
 void Debugs::DrawCellularConsole() {
-	if (ImGui::Begin("Drunkard Walk")) {
+	if (ImGui::Begin("Cellular Automata")) {
 		auto rdm = Globals::GetInstance()->GetRandomMgr();
 
 		static int size = 256;
@@ -312,12 +312,20 @@ void Debugs::DrawRandomMgr() {
 		}
 	}
 
-	static int clicked = 0;
+	static int drunkPop = 0;
 	if (ImGui::Button("Pop Drunkard Walk")) {
-		clicked++;
+		drunkPop++;
 	}
-	if (clicked & 1) {
+	if (drunkPop & 1) {
 		DrawDrunkConsole();
+	}
+	
+	static int cellPop = 0;
+	if (ImGui::Button("Pop Cellular Automata")) {
+		cellPop++;
+	}
+	if (cellPop & 1) {
+		DrawCellularConsole();
 	}
 	
 	if (ImGui::BeginTable("table1", 5))

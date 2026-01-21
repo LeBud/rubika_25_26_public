@@ -13,17 +13,16 @@ DrunkardWalk::DrunkardWalk(unsigned sizeX, unsigned sizeY, unsigned iteration, u
     SpawnNumber = spawnNumber;
     
     Cells.resize(SizeX * SizeY);
-    
     std::memset(Cells.data(), 0, SizeX * SizeY * sizeof(int));
 }
 
 bool DrunkardWalk::Generate() {
-    for (unsigned i = 0; i < Iteration; i++) {
+    for (unsigned i = 0; i < SpawnNumber; i++) {//Faudrait rajouter pour check sur quel case a été marché pour être sur de replacer sur une case non marché
         sf::Vector2<unsigned> originalPos(
             Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,SizeX-1),
             Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandUInt(0,SizeY-1));
         
-        for (unsigned i = 0; i < SpawnNumber; i++) {
+        for (unsigned i = 0; i < Iteration; i++) { //Refaire une distance sur une case qui a été marché durant cette iteration
             sf::Vector2<unsigned> pos = originalPos;
             unsigned cell = pos.y * SizeY + originalPos.x;
             Cells.at(cell) = 1;
@@ -69,7 +68,7 @@ void DrunkardWalk::GenerateTexture(sf::Texture& texture) const {
     sf::Image image;
     image.resize({SizeX,SizeY});
     for (unsigned i = 0; i < SizeX * SizeY; i++) {
-        image.setPixel({i % SizeY, i / SizeY}, Cells[i] == 1 ? sf::Color::White : sf::Color::Red);
+        image.setPixel({i % SizeY, i / SizeY}, Cells[i] == 1 ? sf::Color::White : sf::Color::Black);
     }
     texture.resize({SizeX,SizeY});
     texture.loadFromImage(image);
