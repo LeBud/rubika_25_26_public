@@ -73,6 +73,11 @@ void Debugs::DrawDebug()
 	}
 
 	ImGui::End();
+
+	if (ImGui::Begin("Cellular Automata")) {
+		
+	}
+	ImGui::End();
 }
 
 //Peut-être nécessiter d'être modifier pour ajouter des PushID au for loop
