@@ -1,5 +1,7 @@
 #include "RandomMgr.h"
 
+#include "Procedural/RandomInstance.h"
+
 void RandomMgr::Init() {
     
 }

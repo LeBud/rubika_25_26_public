@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <unordered_map>
 
-#include "RandomInstance.h"
+#include "Procedural/RandomInstance.h"
 
 class RandomMgr {
 public:

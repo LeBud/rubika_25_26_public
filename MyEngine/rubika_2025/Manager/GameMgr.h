@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "IComponent.h"
+#include "Interfaces/IComponent.h"
 
 namespace sf
 {

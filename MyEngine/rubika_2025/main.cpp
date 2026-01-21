@@ -2,9 +2,9 @@
 #include <Imgui/imgui.h>
 #include <Imgui/imgui-SFML.h>
 
-#include "Debugs.h"
-#include "DrunkardWalk.h"
-#include "GameMgr.h"
+#include "Debug/Debugs.h"
+#include "Procedural/DrunkardWalk.h"
+#include "Manager/GameMgr.h"
 #include "Profiler.h"
 
 #include "Globals.h"

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-#include "RandomMgr.h"
+#include "Manager/RandomMgr.h"
 // This is a forward declaration :)
 // This is VERY useful and you must learn about it and use it as much as possible
 class TextureMgr;

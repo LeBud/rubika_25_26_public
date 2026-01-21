@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IVisitable.h"
+#include "Interfaces/IVisitable.h"
 
 #include <rapidxml/rapidxml.hpp>
 #include <SFML/System/Vector2.hpp>

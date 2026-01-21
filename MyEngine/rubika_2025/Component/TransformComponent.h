@@ -1,7 +1,6 @@
 #pragma once
 
-#include "IComponent.h"
-
+#include "Interfaces/IComponent.h"
 #include <SFML/Graphics/Transformable.hpp>
 
 class TransformComponent : public IComponent

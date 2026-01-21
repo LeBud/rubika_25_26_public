@@ -1,6 +1,6 @@
 #pragma once
 
-#include <IVisitor.h>
+#include <Interfaces/IVisitor.h>
 
 #include <rapidxml/rapidxml.hpp>
 #include <rapidxml/rapidxml_utils.hpp>

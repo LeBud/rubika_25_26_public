@@ -1,6 +1,6 @@
 #include "TextureMgr.h"
 
-#include "Logger.h"
+#include "Debug/Logger.h"
 #include "Profiler.h"
 
 #include <SFML/Graphics/Image.hpp>

@@ -1,10 +1,10 @@
 #include "Globals.h"
 
 #include "Entity.h"
-#include "GameMgr.h"
-#include "SpriteComponent.h"
-#include "TextureMgr.h"
-#include "TransformComponent.h"
+#include "Manager/GameMgr.h"
+#include "Component/SpriteComponent.h"
+#include "Manager/TextureMgr.h"
+#include "Component/TransformComponent.h"
 
 Globals::Globals() {
 }

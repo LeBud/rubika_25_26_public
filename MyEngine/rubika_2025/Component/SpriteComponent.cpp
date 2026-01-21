@@ -1,4 +1,4 @@
-#include <SpriteComponent.h>
+#include <Component/SpriteComponent.h>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Entity.h"

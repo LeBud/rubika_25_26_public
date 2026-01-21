@@ -1,11 +1,11 @@
 #pragma once
 
-#include "IComponent.h"
+#include "Interfaces/IComponent.h"
 #include <string>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-#include "TextureMgr.h"
+#include "Manager/TextureMgr.h"
 
 class SpriteComponent : public IComponent
 {

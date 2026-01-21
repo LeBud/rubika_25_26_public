@@ -1,8 +1,8 @@
 #include "GameMgr.h"
 
 #include "Entity.h"
-#include "SpriteComponent.h"
-#include "TransformComponent.h"
+#include "Component/SpriteComponent.h"
+#include "Component/TransformComponent.h"
 
 GameMgr::GameMgr()
 {}
