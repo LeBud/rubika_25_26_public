@@ -1,0 +1,35 @@
+#pragma once
+
+#ifdef USE_IMGUI
+
+#include "Logger.h"
+#include "Manager/TextureMgr.h"
+
+class Debugs
+{
+#pragma region Singleton
+
+public:
+	static Debugs* GetInstance();
+	static void DeleteInstance();
+private:
+	static inline Debugs* Instance = nullptr;
+
+#pragma endregion
+
+public:
+	static void DrawDebugWindow();
+	static Logger& GetLogger();
+	static TextureMgr& GetTextureMgr();
+	
+	void DrawDebug();
+private:
+	Logger Logger;
+
+	// You can add any method, member... you need in this file.
+	void DrawTextureMgr();
+	void DrawEntityDebugger();
+	void DrawRandomMgr();
+};
+
+#endif
