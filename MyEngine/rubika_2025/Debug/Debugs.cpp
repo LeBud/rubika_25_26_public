@@ -112,14 +112,20 @@ void Debugs::DrawCellularConsole() {
 		ImGui::SliderInt("Size X", &size, 16, 512);
 		ImGui::SliderInt("Size Y", &size, 16, 512);
 		ImGui::SliderFloat("Spawn Percent", &spawnPercent, 0.1f, 1.f);
-		ImGui::SliderInt("Neighbor Threshold", &neighborThresh, 1, 25);
+		ImGui::SliderInt("Neighbor Threshold", &neighborThresh, 1, 8);
 		ImGui::SliderInt("Iteration", &iteration, 1, 25);
-		
-		if (ImGui::Button("Generate Cellular Automata"))
-			rdm->GenerateCellularAutomata(size,size,spawnPercent,neighborThresh,iteration);
 
-		if (rdm->cellular != nullptr)
-			ImGui::Image(rdm->cellular->Sprite(), {250,250});
+		static int generation = 0;
+		
+		if (ImGui::Button("Generate Cellular Automata")) {
+			rdm->GenerateCellularAutomata(size,size,spawnPercent,neighborThresh,iteration);
+			generation = rdm->cellular->Sprites.size() - 1;
+		}
+
+		if (rdm->cellular != nullptr) {
+			ImGui::Image(rdm->cellular->Sprites[generation], {250,250});
+			ImGui::SliderInt("Generation", &generation, 0, rdm->cellular->Sprites.size() - 1);
+		}
 	}
 	ImGui::End();
 }

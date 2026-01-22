@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_map>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
@@ -9,7 +10,8 @@ public:
     bool Generate();
     void GenerateTexture(sf::Texture& textures) const;
 
-    sf::Sprite Sprite();
+    sf::Sprite Sprite(sf::Texture& tex) const;
+    std::vector<sf::Sprite> Sprites;
 private:
 
     unsigned SizeX;
@@ -19,5 +21,5 @@ private:
     unsigned Iteration;
 
     std::vector<int> Cells;
-    sf::Texture Texture;
+    std::vector<sf::Texture> Texture;
 };
