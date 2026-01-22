@@ -115,7 +115,7 @@ void Debugs::DrawCellularConsole() {
 		ImGui::SliderInt("Neighbor Threshold", &neighborThresh, 1, 25);
 		ImGui::SliderInt("Iteration", &iteration, 1, 25);
 		
-		if (ImGui::Button("Generate Drunkard Walk"))
+		if (ImGui::Button("Generate Cellular Automata"))
 			rdm->GenerateCellularAutomata(size,size,spawnPercent,neighborThresh,iteration);
 
 		if (rdm->cellular != nullptr)

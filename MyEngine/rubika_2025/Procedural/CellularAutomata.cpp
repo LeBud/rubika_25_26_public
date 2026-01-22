@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics/Image.hpp>
 
+#include "Globals.h"
+
 CellularAutomata::CellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold, unsigned iteration) {
     SizeX = sizeX;
     SizeY = sizeY;
@@ -14,16 +16,57 @@ CellularAutomata::CellularAutomata(unsigned sizeX, unsigned sizeY, double spawnP
 }
 
 bool CellularAutomata::Generate() {
-    //Border are living cells
-    //A cell can't die if it was set alive (on) at some point
     //If cell is surrounded by X (neightborThreshold) living cell, the cell turn alive (on)
     
-    //D'abord initialisé la grille avec le spawn percent par case pour avoir l'état de "base"
     //Puis appliqué les ruleset
 
-    //Il me faut un random de double (linear je penses)
-    //itérer sur chaque cellule et lancer le random, si inférieur au spawnPercent alors on
-    //Check en même temps si une cellule est une bordure x/y 0 ou size 
+    for (unsigned i = 0; i < SizeX * SizeY; i++) { // boucle principale
+        if (i % SizeY == 0 || i % SizeY == SizeX - 1) {
+            Cells[i] = 1;
+            continue;
+        }
+        if (i / SizeY == 0 || i / SizeY == SizeY - 1) {
+            Cells[i] = 1;
+            continue;
+        }
+        double rdm = Globals::GetInstance()->GetRandomMgr()->GetInstance(0)->RandDouble(0.f, 1.f);
+        if (rdm < SpawnPercent) {
+            Cells[i] = 1;
+        }
+    }
+
+    for (unsigned i = 0; i < Iteration; i++) {
+        for (unsigned i = 0; i < SizeX * SizeY; i++) {
+            if (i % SizeY == 0 || i % SizeY == SizeX - 1) {
+                continue;
+            }
+            if (i / SizeY == 0 || i / SizeY == SizeY - 1) {
+                continue;
+            }
+            if (Cells[i] == 1) {
+                continue;
+            }
+
+            sf::Vector2<unsigned> pos (i % SizeY, i / SizeY);
+            unsigned count = 0;
+            if (Cells[pos.y * SizeY + pos.x + 1] == 1)
+                count++;
+            if (Cells[(pos.y + 1) * SizeY + pos.x + 1] == 1)
+                count++;
+            if (Cells[(pos.y + 1) * SizeY + pos.x - 1] == 1)
+                count++;
+            if (Cells[(pos.y + 1) * SizeY + pos.x] == 1)
+                count++;
+            if (Cells[(pos.y - 1) * SizeY + pos.x] == 1)
+                count++;
+            if (Cells[(pos.y - 1) * SizeY + pos.x + 1] == 1)
+                count++;
+            if (Cells[(pos.y - 1) * SizeY + pos.x - 1] == 1)
+                count++;
+            if (Cells[pos.y * SizeY + pos.x] == 1)
+                count++;
+        }
+    }
     
     GenerateTexture(Texture);
     return false;

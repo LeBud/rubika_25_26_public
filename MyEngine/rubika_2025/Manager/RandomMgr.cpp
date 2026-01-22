@@ -42,14 +42,13 @@ void RandomMgr::GenerateDrunkardWalk(unsigned sizeX, unsigned sizeY, unsigned it
         CreateInstance();
     }
     drunk = new DrunkardWalk(sizeX,sizeY,iteration,distance,spawnNumber);
-    if (drunk->Generate()) {
-        
-    }
+    drunk->Generate();
 }
 
-void RandomMgr::GenerateCellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold,
-                                         unsigned iteration) {
-
+void RandomMgr::GenerateCellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold,unsigned iteration) {
+    if (instanceMap.empty()) {
+        CreateInstance();
+    }
     cellular = new CellularAutomata(sizeX, sizeY, spawnPercent, threshold, iteration);
     cellular->Generate();
 }

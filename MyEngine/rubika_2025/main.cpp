@@ -29,9 +29,6 @@ int main()
     Globals::GetInstance()->CreateBaseEntity("Hello");
     Globals::GetInstance()->CreateBaseEntity("Hola");
     Globals::GetInstance()->CreateBaseEntity("Non Non");
-
-    CellularAutomata* cell = new CellularAutomata(256,256,0.6f,5,5);
-    cell->Generate();
     
     sf::Clock clock;
     clock.restart();
