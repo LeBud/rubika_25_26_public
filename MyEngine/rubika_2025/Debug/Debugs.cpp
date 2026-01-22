@@ -123,8 +123,8 @@ void Debugs::DrawCellularConsole() {
 		}
 
 		if (rdm->cellular != nullptr) {
-			ImGui::Image(rdm->cellular->Sprites[generation], {250,250});
 			ImGui::SliderInt("Generation", &generation, 0, rdm->cellular->Sprites.size() - 1);
+			ImGui::Image(rdm->cellular->Sprites[generation], {250,250});
 		}
 	}
 	ImGui::End();

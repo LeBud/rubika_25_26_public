@@ -8,7 +8,7 @@ public:
     CellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold, unsigned iteration);
 
     bool Generate();
-    void GenerateTexture(sf::Texture& textures) const;
+    void GenerateTexture(sf::Texture& textures, unsigned iteration) const;
 
     sf::Sprite Sprite(sf::Texture& tex) const;
     std::vector<sf::Sprite> Sprites;
@@ -20,6 +20,6 @@ private:
     unsigned NeighborThreshold;
     unsigned Iteration;
 
-    std::vector<int> Cells;
+    std::vector<std::vector<int>> Cells;
     std::vector<sf::Texture> Texture;
 };
