@@ -50,12 +50,15 @@ bool CellularAutomata::Generate() {
                         continue;
                     }
                     
-                    int oneD = (pos.y + y) * SizeX + pos.x + x;
-                    
-                    if (oneD < 0 || oneD >= SizeX * SizeY) {
+                    if (pos.x + x < 0 || pos.x + x > SizeX - 1) {
                         count++;
                         continue;
-                    }
+                    }                    
+
+                    if (pos.y + y < 0 || pos.y + y > SizeY - 1) {
+                        count++;
+                        continue;
+                    }    
                     
                     if (Cells[it][(pos.y + y) * SizeX + pos.x + x] == 1) {
                         count++;
