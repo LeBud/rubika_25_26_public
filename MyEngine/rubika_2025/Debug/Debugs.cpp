@@ -130,6 +130,30 @@ void Debugs::DrawCellularConsole() {
 	ImGui::End();
 }
 
+void Debugs::DrawPerlinConsole() {
+	if (ImGui::Begin("Perlin")) {
+		auto rdm = Globals::GetInstance()->GetRandomMgr();
+
+		static int size = 256;
+		static int cellSize = 1;
+		static int octave = 4;
+		
+		ImGui::SliderInt("Size X", &size, 16, 512);
+		ImGui::SliderInt("Size Y", &size, 16, 512);
+		ImGui::SliderInt("Cell Size", &cellSize, 0, 1);
+		ImGui::SliderInt("Octave", &octave, 1, 8);
+		
+		if (ImGui::Button("Generate Perlin")) {
+			rdm->GeneratePerlin(size,size,cellSize,octave);
+		}
+
+		if (rdm->perlin != nullptr) {
+			ImGui::Image(rdm->perlin->Sprite(), {250,250});
+		}
+	}
+	ImGui::End();
+}
+
 //Peut-être nécessiter d'être modifier pour ajouter des PushID au for loop
 void Debugs::DrawTextureMgr() {
 	auto tex = Globals::GetInstance()->GetTextureMgr(); //Get texturesMap
@@ -332,6 +356,14 @@ void Debugs::DrawRandomMgr() {
 	}
 	if (cellPop & 1) {
 		DrawCellularConsole();
+	}
+
+	static int perlinPop = 0;
+	if (ImGui::Button("Pop Perlin")) {
+		perlinPop++;
+	}
+	if (perlinPop & 1) {
+		DrawPerlinConsole();
 	}
 	
 	if (ImGui::BeginTable("table1", 5))

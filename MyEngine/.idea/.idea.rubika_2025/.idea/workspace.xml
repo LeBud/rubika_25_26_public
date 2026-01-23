@@ -8,8 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7af6d27-f453-4877-9ea2-472514a44909" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/rubika_2025/Procedural/Perlin.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rubika_2025/Procedural/Perlin.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rubika_2025/Procedural/CellularAutomata.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Procedural/CellularAutomata.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Debug/Debugs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Debug/Debugs.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Debug/Debugs.h" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Debug/Debugs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Manager/RandomMgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Manager/RandomMgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Manager/RandomMgr.h" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Manager/RandomMgr.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/rubika_2025.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/rubika_2025.vcxproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -599,7 +605,7 @@
       <workItem from="1769070753488" duration="4470000" />
       <workItem from="1769082470948" duration="15613000" />
       <workItem from="1769166537663" duration="337000" />
-      <workItem from="1769166900238" duration="967000" />
+      <workItem from="1769166900238" duration="11552000" />
     </task>
     <servers />
   </component>
@@ -625,11 +631,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/rubika_2025/Debug/Debugs.h</url>
-          <line>4</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

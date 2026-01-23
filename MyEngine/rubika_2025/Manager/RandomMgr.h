@@ -4,6 +4,7 @@
 
 #include "Procedural/CellularAutomata.h"
 #include "Procedural/DrunkardWalk.h"
+#include "Procedural/Perlin.h"
 #include "Procedural/RandomInstance.h"
 
 class RandomMgr {
@@ -25,10 +26,12 @@ public:
 
     void GenerateDrunkardWalk(unsigned sizeX, unsigned sizeY, unsigned iteration, unsigned distance, unsigned spawnNumber);
     void GenerateCellularAutomata(unsigned sizeX, unsigned sizeY, double spawnPercent, unsigned threshold,unsigned iteration);
+    void GeneratePerlin(unsigned sizeX, unsigned sizeY, unsigned cellSize, unsigned octaves);
     
     InstanceId idValue = 0;
     std::unordered_map<InstanceId, RandomInstance*> instanceMap;
 
     CellularAutomata* cellular;
     DrunkardWalk* drunk;
+    Perlin* perlin;
 };

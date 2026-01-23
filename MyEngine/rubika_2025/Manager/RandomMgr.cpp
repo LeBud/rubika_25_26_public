@@ -52,3 +52,11 @@ void RandomMgr::GenerateCellularAutomata(unsigned sizeX, unsigned sizeY, double 
     cellular = new CellularAutomata(sizeX, sizeY, spawnPercent, threshold, iteration);
     cellular->Generate();
 }
+
+void RandomMgr::GeneratePerlin(unsigned sizeX, unsigned sizeY, unsigned cellSize, unsigned octaves) {
+    if (instanceMap.empty()) {
+        CreateInstance();
+    }
+    perlin = new Perlin(sizeX, sizeY,cellSize,octaves);
+    perlin->Generate();
+}

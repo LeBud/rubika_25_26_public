@@ -29,6 +29,7 @@ private:
 	// You can add any method, member... you need in this file.
 	void DrawDrunkConsole();
 	void DrawCellularConsole();
+	void DrawPerlinConsole();
 	void DrawTextureMgr();
 	void DrawEntityDebugger();
 	void DrawRandomMgr();

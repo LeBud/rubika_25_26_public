@@ -828,6 +828,7 @@
       <AdditionalIncludeDirectories>C:\Users\c.huyghe\Documents\GitHub\rubika_25_26_public\MyEngine\packages\WinPixEventRuntime.1.0.240308001\build\..\Include\WinPixEventRuntime;C:\Users\c.huyghe\Documents\GitHub\rubika_25_26_public\MyEngine\Dependencies\include\;C:\Users\c.huyghe\Documents\GitHub\rubika_25_26_public\MyEngine\rubika_2025\;</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="Procedural\Perlin.cpp" />
     <ClCompile Include="Procedural\RandomInstance.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -926,6 +927,7 @@
     <ClInclude Include="Manager\TextureMgr.h" />
     <ClInclude Include="Procedural\CellularAutomata.h" />
     <ClInclude Include="Procedural\DrunkardWalk.h" />
+    <ClInclude Include="Procedural\Perlin.h" />
     <ClInclude Include="Procedural\RandomInstance.h" />
     <ClInclude Include="Profiler.h" />
     <ClInclude Include="SerializeVisitable.h" />
