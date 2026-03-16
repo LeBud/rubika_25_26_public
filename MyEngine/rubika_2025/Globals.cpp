@@ -13,6 +13,7 @@ Globals::~Globals() {
 }
 
 void Globals::Init() {
+    taskMgr = new TaskMgr();
     textureMgr = new TextureMgr();
     gameMgr = new GameMgr();
     randomMgr = new RandomMgr();
@@ -54,6 +55,13 @@ GameMgr* Globals::GetGameMgr() const {
 RandomMgr* Globals::GetRandomMgr() const {
     if (randomMgr != nullptr)
         return randomMgr;
+    
+    return nullptr;
+}
+
+TaskMgr* Globals::GetTaskMgr() const {
+    if (taskMgr != nullptr)
+        return taskMgr;
     
     return nullptr;
 }

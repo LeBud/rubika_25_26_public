@@ -673,6 +673,7 @@
       <AdditionalIncludeDirectories>C:\Users\c.huyghe\Documents\GitHub\rubika_25_26_public\MyEngine\packages\WinPixEventRuntime.1.0.240308001\build\..\Include\WinPixEventRuntime;C:\Users\c.huyghe\Documents\GitHub\rubika_25_26_public\MyEngine\Dependencies\include\;C:\Users\c.huyghe\Documents\GitHub\rubika_25_26_public\MyEngine\rubika_2025\;</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="Manager\TaskMgr.cpp" />
     <ClCompile Include="Manager\TextureMgr.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -924,6 +925,7 @@
     <ClInclude Include="Interfaces\IVisitor.h" />
     <ClInclude Include="Manager\GameMgr.h" />
     <ClInclude Include="Manager\RandomMgr.h" />
+    <ClInclude Include="Manager\TaskMgr.h" />
     <ClInclude Include="Manager\TextureMgr.h" />
     <ClInclude Include="Procedural\CellularAutomata.h" />
     <ClInclude Include="Procedural\DrunkardWalk.h" />

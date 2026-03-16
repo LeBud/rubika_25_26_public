@@ -1,20 +1,23 @@
 #pragma once
 #include <iostream>
-
 #include "Manager/RandomMgr.h"
+#include "Manager/TaskMgr.h"
+
 // This is a forward declaration :)
 // This is VERY useful and you must learn about it and use it as much as possible
 class TextureMgr;
 class GameMgr;
 
 class Globals {
-	
 private:
-	
 	static inline Globals* InstancePtr = nullptr;
 	
+	TextureMgr* textureMgr;
+	GameMgr* gameMgr;
+	RandomMgr* randomMgr;
+	TaskMgr* taskMgr;
+	
 public:
-
 	/*
 	* Constructor & Destructor are here for a reason
 	*/
@@ -37,13 +40,8 @@ public:
 
 	void CreateBaseEntity(std::string baseEntityName);
 
-private:
-	TextureMgr* textureMgr;
-	GameMgr* gameMgr;
-	RandomMgr* randomMgr;
-
-public:
 	TextureMgr* GetTextureMgr() const;
 	GameMgr* GetGameMgr() const;
 	RandomMgr* GetRandomMgr() const;
+	TaskMgr* GetTaskMgr() const;
 };
