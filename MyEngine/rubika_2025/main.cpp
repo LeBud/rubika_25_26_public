@@ -63,12 +63,10 @@ int main()
 
         // sample
         //ImGui::ShowDemoWindow();
-        //Logger::DrawLogger();
-        
-#ifdef USE_IMGUI
-        Debugs::DrawDebugWindow();
-#endif
-        
+        Logger::DrawLogger();
+
+        Sleep(1000);
+
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
