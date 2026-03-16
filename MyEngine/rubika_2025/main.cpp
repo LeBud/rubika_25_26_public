@@ -72,6 +72,8 @@ int main()
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
         window.clear();
 
+        Sleep(1000);
+        
         //========================= Update du GameMgr =========================
         //window.draw(drunk->Sprite());
         Globals::GetInstance()->GetGameMgr()->Update(fDeltaTimeS);
