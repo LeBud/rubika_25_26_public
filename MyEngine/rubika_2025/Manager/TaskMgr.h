@@ -1,5 +1,7 @@
 #pragma once
+#include <condition_variable>
 #include <functional>
+#include <queue>
 #include <thread>
 
 class TaskMgr {
@@ -18,11 +20,45 @@ public:
     void StartPhase(ePhase phase);
     void WaitPhase();
 
-    const int WorkerCount = 4;
-    std::vector<std::thread> workers;
-
-    void WorkerThreadUpdate();
-    
 private:
+    void WorkerThreadUpdate();
+    void SyncThreadUpdate();
+    
     ePhase CurrentPhase;
+    bool ExitApp = false;
+
+    //Parallel Workers
+    const int WorkerCount = 4;
+    
+    std::vector<std::thread> workers;
+    
+    std::queue<std::function<void()>> workerTasks;
+
+    std::condition_variable workerMutex_condition;
+    std::mutex workerQueue_mutex;
+    std::mutex workerTask_mutex;
+
+    std::atomic<int> WorkerActiveTasks;
+
+    //Sync Workers
+    const int SyncCount = 4;
+    
+    std::vector<std::thread> syncThreads;
+
+    std::queue<std::function<void()>> updateSyncTasks;
+    std::queue<std::function<void()>> drawSyncTasks;
+
+    //Update Queue
+    std::condition_variable updateMutex_condition;
+    std::mutex updateQueue_mutex;
+    std::mutex updateTask_mutex;
+    std::atomic<int> UpdateActiveTasks;
+
+    //Draw Queue
+    std::condition_variable drawMutex_condition;
+    std::mutex drawQueue_mutex;
+    std::mutex drawTask_mutex;
+    std::atomic<int> DrawActiveTasks;
+
+    std::condition_variable wait_condition;
 };

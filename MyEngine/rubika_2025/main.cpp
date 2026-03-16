@@ -33,6 +33,17 @@ int main()
     sf::Clock clock;
     clock.restart();
 
+    Globals::GetInstance()->GetTaskMgr()->Init();
+    for (int i = 0; i < 100; ++i) {
+        Globals::GetInstance()->GetTaskMgr()->RegisterTask([i]() {
+            PROFILER_EVENT_BEGIN(PROFILER_COLOR_WHITE, "Task %d", i);
+
+            Sleep(2000);
+
+            PROFILER_EVENT_END();
+        }, TaskMgr::ePhase::Worker);
+    }
+    
     while (window.isOpen())
     {
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_BLACK, "Frame %llu", uFrameCount);
@@ -56,13 +67,12 @@ int main()
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Update");
-        
+        //========================= Update =========================
 #ifdef USE_IMGUI
         ImGui::SFML::Update(window, imGuiTime);
 #endif
-
-        // sample
-        //ImGui::ShowDemoWindow();
+        
+        Globals::GetInstance()->GetGameMgr()->Update(fDeltaTimeS);
         
 #ifdef USE_IMGUI
         Debugs::DrawDebugWindow();
@@ -74,12 +84,11 @@ int main()
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
         window.clear();
+        //========================= Draw =========================
 
-        //Sleep(1000);
-        
-        //========================= Update du GameMgr =========================
-        Globals::GetInstance()->GetGameMgr()->Update(fDeltaTimeS);
         Globals::GetInstance()->GetGameMgr()->Draw(window);
+        
+        Sleep(1000);
         
 #ifdef USE_IMGUI
         ImGui::SFML::Render(window);
@@ -93,6 +102,8 @@ int main()
         ++uFrameCount;
     }
 
+    Globals::GetInstance()->GetTaskMgr()->Shut();
+    
 #ifdef USE_IMGUI
     ImGui::SFML::Shutdown();
 #endif
