@@ -12,6 +12,36 @@
 
 unsigned long long uFrameCount = 0;
 
+void PopulateUpdate() {
+    for (int i = 0; i < 10; ++i)
+    {
+        Globals::GetInstance()->GetTaskMgr()->RegisterTask([i]()
+            {
+                PROFILER_EVENT_BEGIN(PROFILER_COLOR_BLUE, "Update %d", i);
+
+                Sleep(100);
+
+                PROFILER_EVENT_END();
+            },
+            TaskMgr::ePhase::Update);
+    }
+}
+
+void PopulateDraw() {
+    for (int i = 0; i < 20; ++i)
+    {
+        Globals::GetInstance()->GetTaskMgr()->RegisterTask([i]()
+            {
+                PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw %d", i);
+
+                Sleep(50);
+
+                PROFILER_EVENT_END();
+            },
+            TaskMgr::ePhase::Draw);
+    }
+}
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 1080, 720 }), "SFML works!", sf::State::Windowed);
@@ -34,11 +64,12 @@ int main()
     clock.restart();
 
     Globals::GetInstance()->GetTaskMgr()->Init();
-    for (int i = 0; i < 100; ++i) {
+    
+    for (int i = 0; i < 100; ++i) { //Parallel task Test
         Globals::GetInstance()->GetTaskMgr()->RegisterTask([i]() {
-            PROFILER_EVENT_BEGIN(PROFILER_COLOR_WHITE, "Task %d", i);
+            PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Task %d", i);
 
-            Sleep(2000);
+            Sleep(1000);
 
             PROFILER_EVENT_END();
         }, TaskMgr::ePhase::Worker);
@@ -68,6 +99,9 @@ int main()
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Update");
         //========================= Update =========================
+        PopulateUpdate();
+        Globals::GetInstance()->GetTaskMgr()->StartPhase(TaskMgr::ePhase::Update);
+        
 #ifdef USE_IMGUI
         ImGui::SFML::Update(window, imGuiTime);
 #endif
@@ -77,25 +111,25 @@ int main()
 #ifdef USE_IMGUI
         Debugs::DrawDebugWindow();
 #endif
-
-        Sleep(1000);
-
+        
+        Globals::GetInstance()->GetTaskMgr()->WaitPhase();
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
-        window.clear();
         //========================= Draw =========================
-
-        Globals::GetInstance()->GetGameMgr()->Draw(window);
+        PopulateDraw();
+        Globals::GetInstance()->GetTaskMgr()->StartPhase(TaskMgr::ePhase::Draw);
         
-        Sleep(1000);
+        window.clear();
+        
+        Globals::GetInstance()->GetGameMgr()->Draw(window);
         
 #ifdef USE_IMGUI
         ImGui::SFML::Render(window);
 #endif
-        
         window.display();
-
+        
+        Globals::GetInstance()->GetTaskMgr()->WaitPhase();
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_END();

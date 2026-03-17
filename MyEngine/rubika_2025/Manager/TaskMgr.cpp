@@ -38,46 +38,50 @@ void TaskMgr::RegisterTask(std::function<void()> task, ePhase phase) {
     }
     else if (phase == ePhase::Update) {
         {
-            std::unique_lock lock(updateQueue_mutex);
+            std::unique_lock lock(syncQueue_mutex);
             updateSyncTasks.push(task);
         }
         
         ++UpdateActiveTasks;
         
-        updateMutex_condition.notify_one();
+        syncMutex_condition.notify_one();
     }
     else if (phase == ePhase::Draw) {
         {
-            std::unique_lock lock(drawQueue_mutex);
+            std::unique_lock lock(syncQueue_mutex);
             drawSyncTasks.push(task);
         }
         
         ++DrawActiveTasks;
         
-        drawMutex_condition.notify_one();
+        syncMutex_condition.notify_one();
     }
 }
 
 void TaskMgr::StartPhase(ePhase phase) {
     CurrentPhase = phase;
-
-    if (phase == ePhase::Update) {
-        updateMutex_condition.notify_all();
-    }
-    else if (phase == ePhase::Draw) {
-        drawMutex_condition.notify_all();
-    }
-    
-    for (std::thread &sync : syncThreads) {
-        sync.join();
-    }
+    syncMutex_condition.notify_all();
 }
 
 void TaskMgr::WaitPhase() {
-    //Utiliser le condition variable pour savoir si j'ai encore des tâches a accomplir dans une Queue
-    //Savoir si je passe à la suite, où si je le sleep en attendant que ma queue se termine
+    // if (CurrentPhase == ePhase::Update) {
+    //     std::unique_lock lock(waitMutex);
+    //     wait_condition.wait(lock, [this]() { return UpdateActiveTasks == 0 || ExitApp; });
+    // }
+    // else if (CurrentPhase == ePhase::Draw) {
+    //     std::unique_lock lock(waitMutex);
+    //     wait_condition.wait(lock, [this]() { return DrawActiveTasks == 0 || ExitApp; });
+    // }
 
-    //wait_condition.wait()
+    std::unique_lock lock(waitMutex);
+    wait_condition.wait(lock, [this]() {
+        if (CurrentPhase == ePhase::Update)
+            return UpdateActiveTasks == 0 || ExitApp;
+        if (CurrentPhase == ePhase::Draw)
+            return DrawActiveTasks == 0 || ExitApp;
+
+        return false;
+    });
 }
 
 void TaskMgr::WorkerThreadUpdate() {
@@ -90,6 +94,8 @@ void TaskMgr::WorkerThreadUpdate() {
         
         {
             std::unique_lock lock(workerQueue_mutex);
+            if (workerTasks.empty()) continue;
+            
             task = workerTasks.front();
             workerTasks.pop();
         }
@@ -102,14 +108,23 @@ void TaskMgr::WorkerThreadUpdate() {
 void TaskMgr::SyncThreadUpdate() {
     while (true) {
         std::function<void()> task;
-        if (CurrentPhase == ePhase::Update && UpdateActiveTasks > 0) {
             {
-                std::unique_lock lock(updateTask_mutex);
-                updateMutex_condition.wait(lock, [this]() { return !updateSyncTasks.empty() || ExitApp; });
+                std::unique_lock lock(syncTask_mutex);
+                syncMutex_condition.wait(lock, [this]() {
+                    std::unique_lock lock(syncQueue_mutex);
+                    
+                    if (CurrentPhase == ePhase::Update)
+                        return !updateSyncTasks.empty() || ExitApp;
+                    if (CurrentPhase == ePhase::Draw)
+                        return !drawSyncTasks.empty() || ExitApp;
+                });
             }
-            
+
+        if (CurrentPhase == ePhase::Update) {
             {
-                std::unique_lock lock(updateQueue_mutex);
+                std::unique_lock lock(syncQueue_mutex);
+                if (updateSyncTasks.empty()) continue;
+                
                 task = updateSyncTasks.front();
                 updateSyncTasks.pop();
             }
@@ -117,21 +132,37 @@ void TaskMgr::SyncThreadUpdate() {
             task();
             --UpdateActiveTasks;
         }
-        else if (CurrentPhase == ePhase::Draw && DrawActiveTasks > 0) {
-            {
-                std::unique_lock lock(drawTask_mutex);
-                drawMutex_condition.wait(lock, [this]() { return !drawSyncTasks.empty() || ExitApp; });
-            }
+        else if (CurrentPhase == ePhase::Draw) {
+            std::unique_lock lock(syncQueue_mutex);
+            if (drawSyncTasks.empty()) continue;
             
-            {
-                std::unique_lock lock(drawQueue_mutex);
-                task = drawSyncTasks.front();
-                drawSyncTasks.pop();
-            }
-            
+            task = drawSyncTasks.front();
+            drawSyncTasks.pop();
+
             task();
             --DrawActiveTasks;
         }
+
+        wait_condition.notify_one();
+
+        // wait_condition.notify_one();
+            // {
+            //     std::unique_lock lock(syncTask_mutex);
+            //     syncMutex_condition.wait(lock, [this]() {
+            //         std::unique_lock lock(syncQueue_mutex);
+            //         return !drawSyncTasks.empty() || ExitApp;
+            //     });
+            // }
+            //
+            // {
+            //     std::unique_lock lock(syncQueue_mutex);
+            //     task = drawSyncTasks.front();
+            //     drawSyncTasks.pop();
+            // }
+            //
+            // task();
+            // --DrawActiveTasks;
+            
     }
 }
 
