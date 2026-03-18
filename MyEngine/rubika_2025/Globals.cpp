@@ -10,6 +10,7 @@ Globals::Globals() {
 }
 
 Globals::~Globals() {
+    Destroy();
 }
 
 void Globals::Init() {
@@ -19,7 +20,24 @@ void Globals::Init() {
     randomMgr = new RandomMgr();
 }
 
+void Globals::Shut()
+{
+    //GameMgr->Shut();
+    // textureMgr->Shut();
+    //DebugMgr->Shut();
+    // Console->Shut();
+    // RandomMgr->Shut();
+}
+
 void Globals::Destroy() {
+    delete gameMgr;
+    gameMgr = nullptr;
+
+    delete textureMgr;
+    textureMgr = nullptr;
+
+    delete randomMgr;
+    randomMgr = nullptr;
 }
 
 void Globals::CreateBaseEntity(std::string baseEntityName) {

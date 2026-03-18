@@ -177,7 +177,6 @@ bool LoadTextureMetadata(const std::filesystem::path& path, sTextureData& textur
 
 bool TextureMgr::LoadTexture(const std::filesystem::path& path)
 {
-
 	if (Textures.contains(path.string())) {
 		return true;
 	}

@@ -14,6 +14,7 @@ void TaskMgr::Init() {
 void TaskMgr::Shut() {
     {
         std::unique_lock lock(workerQueue_mutex);
+        std::unique_lock lock2(syncQueue_mutex);
         ExitApp = true;
     }
 
@@ -22,7 +23,13 @@ void TaskMgr::Shut() {
         worker.join();
     }
 
+    syncMutex_condition.notify_all();
+    for (std::thread &sync : syncThreads) {
+        sync.join();
+    }
+
     workers.clear();
+    syncThreads.clear();
 }
 
 void TaskMgr::RegisterTask(std::function<void()> task, ePhase phase) {

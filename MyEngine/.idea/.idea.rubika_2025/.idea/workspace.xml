@@ -9,7 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b7af6d27-f453-4877-9ea2-472514a44909" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.rubika_2025/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Globals.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Globals.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Globals.h" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Globals.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rubika_2025/Manager/TaskMgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Manager/TaskMgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/Manager/TextureMgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/Manager/TextureMgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_2025/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_2025/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +57,8 @@
     <setting file="file://$PROJECT_DIR$/rubika_2025/Manager/TextureMgr.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/rubika_2025/Profiler.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/rubika_2025/main.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../MyEngine_Correction/rubika_25_26/Engine/Globals.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../MyEngine_Correction/rubika_25_26/Game/Main.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -143,6 +149,8 @@
       <workItem from="1773669937621" duration="8530000" />
       <workItem from="1773753227423" duration="11892000" />
       <workItem from="1773824758848" duration="909000" />
+      <workItem from="1773831506305" duration="2948000" />
+      <workItem from="1773834494043" duration="369000" />
     </task>
     <servers />
   </component>

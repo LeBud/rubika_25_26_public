@@ -29,6 +29,7 @@ public:
 	* They must be implemented in the right way to (de)initialize members
 	*/
 	void Init();
+	void Shut();
 	void Destroy();
 	
 	static Globals* GetInstance() {
@@ -45,3 +46,5 @@ public:
 	RandomMgr* GetRandomMgr() const;
 	TaskMgr* GetTaskMgr() const;
 };
+
+extern Globals gData;

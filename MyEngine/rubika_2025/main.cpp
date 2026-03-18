@@ -54,19 +54,19 @@ int main()
     Logger::Warning("This is a warning message. Should I worry?");
     Logger::Error("This is an error message. Oh sh*t!!");*/
 
-    Globals::GetInstance()->Init();
+    gData.Init();
 
-    Globals::GetInstance()->CreateBaseEntity("Hello");
-    Globals::GetInstance()->CreateBaseEntity("Hola");
-    Globals::GetInstance()->CreateBaseEntity("Non Non");
+    gData.CreateBaseEntity("Hello");
+    gData.CreateBaseEntity("Hola");
+    gData.CreateBaseEntity("Non Non");
     
     sf::Clock clock;
     clock.restart();
 
-    Globals::GetInstance()->GetTaskMgr()->Init();
+    gData.GetTaskMgr()->Init();
     
     for (int i = 0; i < 100; ++i) { //Parallel task Test
-        Globals::GetInstance()->GetTaskMgr()->RegisterTask([i]() {
+        gData.GetTaskMgr()->RegisterTask([i]() {
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Task %d", i);
 
             Sleep(1000);
@@ -100,47 +100,49 @@ int main()
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Update");
         //========================= Update =========================
         PopulateUpdate();
-        Globals::GetInstance()->GetTaskMgr()->StartPhase(TaskMgr::ePhase::Update);
+        gData.GetTaskMgr()->StartPhase(TaskMgr::ePhase::Update);
         
 #ifdef USE_IMGUI
         ImGui::SFML::Update(window, imGuiTime);
 #endif
         
-        Globals::GetInstance()->GetGameMgr()->Update(fDeltaTimeS);
+        gData.GetGameMgr()->Update(fDeltaTimeS);
         
 #ifdef USE_IMGUI
         Debugs::DrawDebugWindow();
 #endif
         
-        Globals::GetInstance()->GetTaskMgr()->WaitPhase();
+        gData.GetTaskMgr()->WaitPhase();
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
         //========================= Draw =========================
         PopulateDraw();
-        Globals::GetInstance()->GetTaskMgr()->StartPhase(TaskMgr::ePhase::Draw);
+        gData.GetTaskMgr()->StartPhase(TaskMgr::ePhase::Draw);
         
         window.clear();
         
-        Globals::GetInstance()->GetGameMgr()->Draw(window);
+        gData.GetGameMgr()->Draw(window);
         
 #ifdef USE_IMGUI
         ImGui::SFML::Render(window);
 #endif
         window.display();
         
-        Globals::GetInstance()->GetTaskMgr()->WaitPhase();
+        gData.GetTaskMgr()->WaitPhase();
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_END();
         ++uFrameCount;
     }
 
-    Globals::GetInstance()->GetTaskMgr()->Shut();
+    gData.GetTaskMgr()->Shut();
     
 #ifdef USE_IMGUI
     ImGui::SFML::Shutdown();
 #endif
-
+    
+    gData.Shut();
+    gData.Destroy();
     return 0;
 }
