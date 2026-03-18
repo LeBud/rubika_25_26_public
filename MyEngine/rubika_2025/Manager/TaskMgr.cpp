@@ -133,36 +133,19 @@ void TaskMgr::SyncThreadUpdate() {
             --UpdateActiveTasks;
         }
         else if (CurrentPhase == ePhase::Draw) {
-            std::unique_lock lock(syncQueue_mutex);
-            if (drawSyncTasks.empty()) continue;
-            
-            task = drawSyncTasks.front();
-            drawSyncTasks.pop();
+            {
+                std::unique_lock lock(syncQueue_mutex);
+                if (drawSyncTasks.empty()) continue;
+                
+                task = drawSyncTasks.front();
+                drawSyncTasks.pop();
+            }
 
             task();
             --DrawActiveTasks;
         }
 
         wait_condition.notify_one();
-
-        // wait_condition.notify_one();
-            // {
-            //     std::unique_lock lock(syncTask_mutex);
-            //     syncMutex_condition.wait(lock, [this]() {
-            //         std::unique_lock lock(syncQueue_mutex);
-            //         return !drawSyncTasks.empty() || ExitApp;
-            //     });
-            // }
-            //
-            // {
-            //     std::unique_lock lock(syncQueue_mutex);
-            //     task = drawSyncTasks.front();
-            //     drawSyncTasks.pop();
-            // }
-            //
-            // task();
-            // --DrawActiveTasks;
-            
     }
 }
 
