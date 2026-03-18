@@ -65,6 +65,8 @@ public:
 private:
 	std::unordered_map<std::string, sTextureData> Textures;
 
+	std::unordered_map<std::string, sf::Image> loadedImages;
+	
 	sTextureData MissingTexture;
 
 	std::unordered_map<std::string, std::vector<Entity*>> textureUsedByEntity;

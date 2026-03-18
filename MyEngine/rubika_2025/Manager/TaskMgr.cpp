@@ -1,7 +1,6 @@
 #include "TaskMgr.h"
 
 void TaskMgr::Init() {
-    //Je suppose que j'init mon vector de thread ?
     for (int i = 0; i < WorkerCount; ++i) {
         workers.emplace_back(std::thread(&TaskMgr::WorkerThreadUpdate, this));
     }
@@ -71,15 +70,6 @@ void TaskMgr::StartPhase(ePhase phase) {
 }
 
 void TaskMgr::WaitPhase() {
-    // if (CurrentPhase == ePhase::Update) {
-    //     std::unique_lock lock(waitMutex);
-    //     wait_condition.wait(lock, [this]() { return UpdateActiveTasks == 0 || ExitApp; });
-    // }
-    // else if (CurrentPhase == ePhase::Draw) {
-    //     std::unique_lock lock(waitMutex);
-    //     wait_condition.wait(lock, [this]() { return DrawActiveTasks == 0 || ExitApp; });
-    // }
-
     std::unique_lock lock(waitMutex);
     wait_condition.wait(lock, [this]() {
         if (CurrentPhase == ePhase::Update)

@@ -6,7 +6,13 @@
 #include "Manager/TextureMgr.h"
 #include "Component/TransformComponent.h"
 
+Globals gData;
+
 Globals::Globals() {
+    taskMgr = new TaskMgr();
+    textureMgr = new TextureMgr();
+    gameMgr = new GameMgr();
+    randomMgr = new RandomMgr();
 }
 
 Globals::~Globals() {
@@ -14,16 +20,13 @@ Globals::~Globals() {
 }
 
 void Globals::Init() {
-    taskMgr = new TaskMgr();
-    textureMgr = new TextureMgr();
-    gameMgr = new GameMgr();
-    randomMgr = new RandomMgr();
+    taskMgr->Init();
 }
 
 void Globals::Shut()
 {
+    taskMgr->Shut();
     //GameMgr->Shut();
-    // textureMgr->Shut();
     //DebugMgr->Shut();
     // Console->Shut();
     // RandomMgr->Shut();
@@ -46,6 +49,7 @@ void Globals::CreateBaseEntity(std::string baseEntityName) {
     baseEntity->GetComponent<TransformComponent>()->SetPosition(sf::Vector2f{200,200});
     
     baseEntity->AddComponent<SpriteComponent>();
+
     if (GetTextureMgr()->LoadTexture("../Ressources/IsaacSprite.png")) {
         SpriteComponent* sprite = baseEntity->GetComponent<SpriteComponent>();
         sprite->SetTexture("../Ressources/IsaacSprite.png");

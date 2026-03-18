@@ -56,21 +56,19 @@ int main()
 
     gData.Init();
 
-    gData.CreateBaseEntity("Hello");
+    gData.CreateBaseEntity("Hello");    
     gData.CreateBaseEntity("Hola");
     gData.CreateBaseEntity("Non Non");
     
     sf::Clock clock;
     clock.restart();
-
-    gData.GetTaskMgr()->Init();
     
     for (int i = 0; i < 100; ++i) { //Parallel task Test
         gData.GetTaskMgr()->RegisterTask([i]() {
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Task %d", i);
-
+    
             Sleep(1000);
-
+    
             PROFILER_EVENT_END();
         }, TaskMgr::ePhase::Worker);
     }
@@ -135,8 +133,6 @@ int main()
         PROFILER_EVENT_END();
         ++uFrameCount;
     }
-
-    gData.GetTaskMgr()->Shut();
     
 #ifdef USE_IMGUI
     ImGui::SFML::Shutdown();

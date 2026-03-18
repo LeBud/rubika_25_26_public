@@ -181,8 +181,7 @@ bool TextureMgr::LoadTexture(const std::filesystem::path& path)
 		return true;
 	}
 	
-	if (!std::filesystem::exists(path))
-	{
+	if (!std::filesystem::exists(path)){
 		char msg[128] = {};
 		snprintf(msg, sizeof(msg), "LoadTexture: Texture file doesn't exist %s", path.string().c_str());
 		Logger::Error(msg);
@@ -191,8 +190,7 @@ bool TextureMgr::LoadTexture(const std::filesystem::path& path)
 
 	std::filesystem::path metadataPath = path;
 	metadataPath = metadataPath.replace_extension(".xml");
-	if (!std::filesystem::exists(metadataPath.native()))
-	{
+	if (!std::filesystem::exists(metadataPath.native())){
 		char msg[128] = {};
 		snprintf(msg, sizeof(msg), "LoadTexture: Texture metadata file doesn't exist %s", metadataPath.string().c_str());
 		Logger::Error(msg);
@@ -200,25 +198,40 @@ bool TextureMgr::LoadTexture(const std::filesystem::path& path)
 	}
 
 	auto p = Textures.emplace(path.string(), sTextureData());
-	if (!p.second)
-	{
+	if (!p.second){
 		Logger::Error("LoadTexture: Internal error. Cannot emplace in map");
 		return false;
 	}
 
+	//D'abord ici que je load une image
+	// sf::Image toLoadIMG;
+	// toLoadIMG.loadFromFile(path.string());
+	// loadedImages.emplace(path.string(), toLoadIMG);
+	
 	sTextureData& textureData = p.first->second;
-	if (!textureData.Texture.loadFromFile(path.generic_u8string()))
-	{
+	if (!textureData.Texture.loadFromFile(path.generic_u8string())){
 		return false;
 	}
 
-	if (!LoadTextureMetadata(metadataPath, textureData))
-	{
+	//=== Start Thread func ===
+	// if (!loadedImages.contains(path.string())) {
+	// 	char msg[128] = {};
+	// 	snprintf(msg, sizeof(msg),"Loaded Image does not contain %s", path.generic_u8string());
+	// 	Logger::Error(msg);
+	// 	return false;
+	// }
+	//
+	// if (!textureData.Texture.loadFromImage(loadedImages[path.string()])){
+	// 	return false;
+	// }
+	//=== End Thread func ===
+	
+	if (!LoadTextureMetadata(metadataPath, textureData)){
 		return false;
 	}
 	
 	textureData.TextureName = path.string();
-		
+	
 	Logger::Info("Texture Loaded");
 	return true;
 }
@@ -231,7 +244,6 @@ OffsetX(0), OffsetY(0), AnimationSpriteCount(0), SpriteOnLine(0), IsReverted(fal
 sTextureData::sTextureData() : Texture(), AnimationData()
 {}
 
-sTextureData::~sTextureData()
-{
+sTextureData::~sTextureData(){
 	AnimationData.clear();
 }

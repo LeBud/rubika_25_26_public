@@ -15,7 +15,6 @@ void SpriteComponent::Start() {
 }
 
 void SpriteComponent::Update(float fDeltaTime) {
-
     //Handle animation update
     if (!bPause && currentAnimationData != nullptr) {
         if (currentAnimationData->AnimationSpriteCount < 2) return;
@@ -58,7 +57,6 @@ void SpriteComponent::PlayAnimation(bool bPause) {
 }
 
 void SpriteComponent::UpdateAnimation(int currentSprite) {
-    
     //if (bPause) return;
     
     int currentX = currentAnimationData->StartX + currentAnimationData->SizeX * currentSprite + currentAnimationData->OffsetX * currentSprite;
